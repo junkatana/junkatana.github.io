@@ -26,26 +26,6 @@ const PROJETOS = [
     links: []
   },
   {
-    titulo: "Final Fantasy I",
-    tipo: "port",
-    de: "Game Boy Advance",
-    para: "Mega Drive",
-    status: "em-andamento",
-    resumo: "Port da versão Dawn of Souls para o Mega Drive, desenvolvido em etapas.",
-    imagem: "",
-    links: []
-  },
-  {
-    titulo: "Magical Tree",
-    tipo: "port",
-    de: "MSX",
-    para: "Master System",
-    status: "concluido",
-    resumo: "Port completo do clássico da Konami, em duas variantes: modo 4 nativo do Master System e modo TMS.",
-    imagem: "",
-    links: []
-  },
-  {
     titulo: "Dogs of War",
     tipo: "port",
     de: "Amiga",
@@ -56,17 +36,7 @@ const PROJETOS = [
     links: []
   },
   {
-    titulo: "Phantasy Star — minimapa",
-    tipo: "romhack",
-    de: "Master System",
-    para: "Master System",
-    status: "concluido",
-    resumo: "Minimapa automático nas dungeons, feito em código Z80 dentro da própria ROM. Funciona em emulador e no console.",
-    imagem: "",
-    links: []
-  },
-  {
-    titulo: "Shining in the Darkness — minimapa",
+    titulo: "Shining in the Darkness — Map Hack",
     tipo: "romhack",
     de: "Mega Drive",
     para: "Mega Drive",
@@ -76,12 +46,12 @@ const PROJETOS = [
     links: []
   },
   {
-    titulo: "Phantasy Star",
-    tipo: "port",
+    titulo: "Phantasy Star — Map Hack",
+    tipo: "romhack",
     de: "Master System",
-    para: "Mega Drive",
-    status: "em-andamento",
-    resumo: "Port do primeiro Phantasy Star para o Mega Drive.",
+    para: "Master System",
+    status: "concluido",
+    resumo: "Minimapa automático nas dungeons, feito em código Z80 dentro da própria ROM. Funciona em emulador e no console.",
     imagem: "",
     links: []
   }
