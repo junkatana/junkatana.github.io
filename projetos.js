@@ -16,6 +16,8 @@
 //    video      arquivo .mp4 (opcional)
 //    galeria    lista de { img, legenda }
 //    links      lista de { texto, url }
+//    versao     versão do patch para download (opcional)
+//    requer     ROM original necessária para aplicar o patch (opcional)
 //
 //  Dica: distribua só PATCHES (.ips/.bps), nunca a ROM do jogo.
 // ============================================================
@@ -35,19 +37,19 @@ const PROJETOS = [
     },
     texto: {
       pt: [
-        "Dragon Quest III é um dos RPGs mais importantes da história, e o remake de Super Nintendo nunca saiu para o Mega Drive. Este projeto leva o jogo inteiro para o console da Sega, rodando no hardware original.",
+        "Dragon Quest III é um dos RPGs mais importantes da história, e o remake de Super Nintendo nunca saiu para o Mega Drive. Este projeto leva o jogo inteiro para o console da Sega, feito para o hardware original.",
         "O código do jogo foi traduzido do processador do SNES (65816) para o do Mega Drive (68000). Os gráficos foram convertidos para a paleta e os limites de cor do Mega Drive, e as músicas foram refeitas para o chip de som FM (YM2612).",
         "Cada cidade, castelo e dungeon é conferido lado a lado com o original: portas, baús, diálogos, eventos e os ciclos de dia e noite."
       ],
       en: [
-        "Dragon Quest III is one of the most important RPGs ever made, and its Super Nintendo remake never came to the Mega Drive. This project brings the whole game to Sega's console, running on real hardware.",
+        "Dragon Quest III is one of the most important RPGs ever made, and its Super Nintendo remake never came to the Mega Drive. This project brings the whole game to Sega's console, made for the original hardware.",
         "The game code was translated from the SNES processor (65816) to the Mega Drive's (68000). Graphics were converted to the Mega Drive palette and colour limits, and the music was rearranged for the FM sound chip (YM2612).",
         "Every town, castle and dungeon is checked side by side with the original: doors, chests, dialogue, events and the day/night cycle."
       ]
     },
     destaques: {
-      pt: ["Roda em Mega Drive real (flashcart) e em emuladores", "Gráficos convertidos para a paleta do Mega Drive", "Músicas refeitas em FM", "Ciclo de dia e noite, lojas, igrejas, batalhas e magias"],
-      en: ["Runs on a real Mega Drive (flashcart) and in emulators", "Graphics converted to the Mega Drive palette", "Music rearranged for FM", "Day/night cycle, shops, churches, battles and spells"]
+      pt: ["Feito para o hardware do Mega Drive", "Gráficos convertidos para a paleta do Mega Drive", "Músicas refeitas em FM", "Ciclo de dia e noite, lojas, igrejas, batalhas e magias"],
+      en: ["Made for the Mega Drive hardware", "Graphics converted to the Mega Drive palette", "Music rearranged for FM", "Day/night cycle, shops, churches, battles and spells"]
     },
     galeria: [
       { img: "img/dq3/titulo.png", legenda: { pt: "Tela de título", en: "Title screen" } },
@@ -118,11 +120,11 @@ const PROJETOS = [
     texto: {
       pt: [
         "Shining in the Darkness é um RPG em primeira pessoa, e se perder nos labirintos faz parte do jogo, mas pode ser cansativo. Este hack adiciona um minimapa que se desenha sozinho conforme você anda.",
-        "O minimapa está dentro da própria ROM, escrito em código 68000 e desenhado pelo VDP do Mega Drive. Funciona em qualquer emulador e no console de verdade com um flashcart, sem plugins nem programas extras."
+        "O minimapa está dentro da própria ROM, escrito em código 68000 e desenhado pelo VDP do Mega Drive. Não depende de plugins nem de programas extras, e foi testado nos emuladores Genesis Plus GX e BlastEm."
       ],
       en: [
         "Shining in the Darkness is a first-person RPG, and getting lost in its mazes is part of the game, but it can get tiring. This hack adds a minimap that draws itself as you walk.",
-        "The minimap lives inside the ROM itself, written in 68000 code and drawn by the Mega Drive's VDP. It works in any emulator and on real hardware with a flashcart, with no plugins or extra software."
+        "The minimap lives inside the ROM itself, written in 68000 code and drawn by the Mega Drive's VDP. It needs no plugins or extra software, and was tested on the Genesis Plus GX and BlastEm emulators."
       ]
     },
     destaques: {
@@ -135,7 +137,15 @@ const PROJETOS = [
       { img: "img/shining/map-en.png", legenda: { pt: "Versão em inglês", en: "English version" } },
       { img: "img/shining/menu.png", legenda: { pt: "O minimapa some nos menus", en: "The minimap hides in menus" } }
     ],
-    links: []
+    links: [
+      { texto: { pt: "Baixar IPS (ROM brasileira)", en: "Download IPS (Brazilian ROM)" }, url: "downloads/shining-in-the-darkness-map-hack-1.3-br.ips" },
+      { texto: { pt: "Baixar IPS (ROM USA/Europa)", en: "Download IPS (USA/Europe ROM)" }, url: "downloads/shining-in-the-darkness-map-hack-1.3-us.ips" }
+    ],
+    versao: "1.3",
+    requer: {
+      pt: ["Shining in the Darkness (Brazil) — CRC32 3EE2BBC4", "Shining in the Darkness (USA, Europe) — CRC32 4D2785BC"],
+      en: ["Shining in the Darkness (Brazil) — CRC32 3EE2BBC4", "Shining in the Darkness (USA, Europe) — CRC32 4D2785BC"]
+    }
   },
   {
     id: "phantasy-star",
@@ -146,8 +156,8 @@ const PROJETOS = [
     status: "concluido",
     capa: "img/phantasy-star/porta-patch.png",
     resumo: {
-      pt: "Minimapa automático nas dungeons, feito em código Z80 dentro da própria ROM. Funciona em emulador e no console.",
-      en: "An automatic minimap in the dungeons, written in Z80 code inside the ROM itself. Works in emulators and on the console."
+      pt: "Minimapa automático nas dungeons, feito em código Z80 dentro da própria ROM. Feito para o hardware do Master System.",
+      en: "An automatic minimap in the dungeons, written in Z80 code inside the ROM itself. Made for the Master System hardware."
     },
     texto: {
       pt: [
@@ -160,8 +170,8 @@ const PROJETOS = [
       ]
     },
     destaques: {
-      pt: ["Painel de 40 × 48 pixels no canto superior direito", "Registra portas atravessadas", "Compatível com o save original", "Para Phantasy Star (USA, Europe) (Rev A)"],
-      en: ["40 × 48 pixel panel in the top-right corner", "Records doors you walk through", "Compatible with original save files", "For Phantasy Star (USA, Europe) (Rev A)"]
+      pt: ["Painel de 48 × 56 pixels, sempre visível ao andar e virar", "Registra portas atravessadas", "Compatível com o save original", "Para Phantasy Star (USA, Europe) (Rev A)"],
+      en: ["48 × 56 pixel panel, always visible while walking and turning", "Records doors you walk through", "Compatible with original save files", "For Phantasy Star (USA, Europe) (Rev A)"]
     },
     galeria: [
       { img: "img/phantasy-star/demo.gif", legenda: { pt: "O minimapa em ação", en: "The minimap in action" } },
@@ -171,7 +181,14 @@ const PROJETOS = [
       { img: "img/phantasy-star/bau-dialogo.png", legenda: { pt: "O minimapa some nas caixas de diálogo", en: "The minimap hides in dialogue boxes" } },
       { img: "img/phantasy-star/cidade-patch.png", legenda: { pt: "Fora da dungeon, nada muda", en: "Outside dungeons, nothing changes" } }
     ],
-    links: []
+    links: [
+      { texto: { pt: "Baixar IPS", en: "Download IPS" }, url: "downloads/phantasy-star-sms-map-hack-1.1.ips" }
+    ],
+    versao: "1.1",
+    requer: {
+      pt: ["Phantasy Star (USA, Europe) (Rev A) — CRC32 00BEF1D7"],
+      en: ["Phantasy Star (USA, Europe) (Rev A) — CRC32 00BEF1D7"]
+    }
   },
   {
     id: "genecyst-revival",

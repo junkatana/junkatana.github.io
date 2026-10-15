@@ -452,3 +452,17 @@ footer { text-align: center; color: var(--suave); font-size: .85rem; padding: 28
   *, *::before, *::after { animation: none !important; transition: none !important; }
   html { scroll-behavior: auto; }
 }
+
+/* ---------- ROM necessária para o patch ---------- */
+.requer {
+  margin-top: 18px;
+  padding: 12px 14px;
+  border: 2px dashed rgba(233, 236, 255, .35);
+  border-radius: 6px;
+  font-size: .9rem;
+  color: var(--suave);
+}
+.requer-titulo { margin: 0 0 6px; color: var(--texto); font-weight: 600; }
+.requer ul { margin: 0 0 8px; padding-left: 18px; }
+.requer li { font-family: ui-monospace, "SFMono-Regular", Menlo, monospace; font-size: .82rem; overflow-wrap: anywhere; }
+.como-aplicar { margin: 0; }

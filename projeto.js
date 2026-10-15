@@ -40,11 +40,30 @@ function desenhar() {
     for (const l of projeto.links) {
       const a = el("a", "botao", tr(l.texto));
       a.href = l.url;
+      if (l.url.startsWith("downloads/")) a.setAttribute("download", "");
       a.target = "_blank";
       a.rel = "noopener";
       links.appendChild(a);
     }
     info.appendChild(links);
+  }
+  if (projeto.requer) {
+    const box = el("div", "requer");
+    let titulo = t("requer");
+    if (projeto.versao) titulo = t("versao") + " " + projeto.versao + " · " + titulo;
+    box.appendChild(el("p", "requer-titulo", titulo));
+    const ul = el("ul");
+    tr(projeto.requer).forEach(r => ul.appendChild(el("li", null, r)));
+    box.appendChild(ul);
+    const como = el("p", "como-aplicar");
+    const a = el("a", null, "Rom Patcher JS");
+    a.href = "https://www.marcrobledo.com/RomPatcher.js/";
+    a.target = "_blank";
+    a.rel = "noopener";
+    const partes = t("como_aplicar").split("Rom Patcher JS");
+    como.append(partes[0], a, partes[1] || "");
+    box.appendChild(como);
+    info.appendChild(box);
   }
   topo.appendChild(info);
   const capa = document.createElement("img");
