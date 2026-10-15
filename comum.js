@@ -2,7 +2,7 @@
 
 const TEXTOS = {
   pt: {
-    subtitulo: "Ports de jogos, traduções, romhacks e emuladores para consoles clássicos",
+    saudacao: "Olá, viajante! Eu levo jogos clássicos para outros consoles, crio romhacks e ferramentas de emulação. Escolha um projeto abaixo.",
     projetos: "Projetos",
     sobre: "Sobre",
     todos: "Todos",
@@ -33,7 +33,7 @@ const TEXTOS = {
     status_pausado: "Pausado"
   },
   en: {
-    subtitulo: "Game ports, translations, romhacks and emulators for classic consoles",
+    saudacao: "Greetings, traveler! I bring classic games to other consoles and make romhacks and emulation tools. Choose a project below.",
     projetos: "Projects",
     sobre: "About",
     todos: "All",
@@ -95,8 +95,24 @@ function el(tag, classe, texto) {
   return e;
 }
 
-function plataformaDe(p) {
-  return p.de === p.para || !p.para ? p.de : p.de + " → " + p.para;
+const CLASSE_CONSOLE = {
+  "Super Nintendo": "snes",
+  "Mega Drive": "md",
+  "Master System": "sms",
+  "Amiga": "amiga",
+  "Game Boy Advance": "gba",
+  "MSX": "msx"
+};
+
+// "Super Nintendo → Mega Drive" como duas etiquetas de console.
+function plataforma(p) {
+  const box = el("p", "plataforma");
+  const consoles = p.de === p.para || !p.para ? [p.de] : [p.de, p.para];
+  consoles.forEach((nome, i) => {
+    if (i) box.appendChild(el("span", "seta-console", "▶"));
+    box.appendChild(el("span", "console " + (CLASSE_CONSOLE[nome] || "outro"), nome));
+  });
+  return box;
 }
 
 function etiquetas(p) {

@@ -5,7 +5,7 @@ const vazio = document.getElementById("vazio");
 let filtroAtual = "todos";
 
 function cartao(p) {
-  const a = el("a", "cartao");
+  const a = el("a", "cartao janela");
   a.href = "projeto.html?id=" + p.id + "&lang=" + LINGUA;
 
   const capa = el("div", "capa");
@@ -19,9 +19,9 @@ function cartao(p) {
   const corpo = el("div", "corpo");
   corpo.appendChild(etiquetas(p));
   corpo.appendChild(el("h3", null, p.titulo));
-  corpo.appendChild(el("p", "plataforma", plataformaDe(p)));
+  corpo.appendChild(plataforma(p));
   corpo.appendChild(el("p", "resumo", tr(p.resumo)));
-  corpo.appendChild(el("span", "ver", t("ver") + " →"));
+  corpo.appendChild(el("span", "ver", t("ver")));
   a.appendChild(corpo);
   return a;
 }

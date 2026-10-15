@@ -30,10 +30,10 @@ function desenhar() {
 
   // Cabeçalho do projeto
   const topo = el("div", "projeto-topo");
-  const info = el("div", "projeto-info");
+  const info = el("div", "projeto-info janela");
   info.appendChild(etiquetas(projeto));
   info.appendChild(el("h1", null, projeto.titulo));
-  info.appendChild(el("p", "plataforma", plataformaDe(projeto)));
+  info.appendChild(plataforma(projeto));
   info.appendChild(el("p", "resumo-grande", tr(projeto.resumo)));
   if (projeto.links && projeto.links.length) {
     const links = el("div", "links");
@@ -61,7 +61,7 @@ function desenhar() {
   colunas.appendChild(texto);
   const destaques = tr(projeto.destaques) || [];
   if (destaques.length) {
-    const box = el("aside", "destaques");
+    const box = el("aside", "destaques janela");
     box.appendChild(el("h2", null, t("destaques")));
     const ul = el("ul");
     destaques.forEach(d => ul.appendChild(el("li", null, d)));

@@ -7,7 +7,7 @@
   <meta name="description" content="Ports de jogos, traduções, romhacks e emuladores feitos por Junkatana. Game ports, translations, romhacks and emulators by Junkatana.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Pixelify+Sans:wght@400;600&family=Inter:wght@400;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
   <link rel="icon" type="image/png" href="img/favicon.png">
   <meta property="og:title" content="Junkatana">
@@ -19,23 +19,31 @@
     <button data-lingua="en">EN</button>
   </div>
 
+  <div class="estrelas" aria-hidden="true"></div>
+
   <header class="topo">
-    <div class="topo-conteudo">
-      <img class="perfil" src="img/perfil.png" alt="Junkatana" width="128" height="128">
-      <h1>JUNKATANA</h1>
-      <p class="subtitulo" data-t="subtitulo"></p>
-      <nav>
-        <a href="#projetos" data-t="projetos"></a>
-        <a href="#sobre" data-t="sobre"></a>
-        <a href="https://www.youtube.com/@junkatana" target="_blank" rel="noopener">YouTube</a>
-        <a href="https://x.com/junkatanagames" target="_blank" rel="noopener">X</a>
-        <a href="https://github.com/junkatana" target="_blank" rel="noopener">GitHub</a>
-      </nav>
+    <div class="heroi">
+      <div class="retrato janela">
+        <img class="perfil" src="img/perfil.png" alt="Junkatana" width="160" height="160">
+      </div>
+      <div class="janela fala">
+        <h1>JUNKATANA</h1>
+        <p class="subtitulo" data-t="saudacao"></p>
+        <span class="seta" aria-hidden="true">▼</span>
+      </div>
     </div>
+    <nav class="menu janela">
+      <a href="#projetos" data-t="projetos"></a>
+      <a href="#sobre" data-t="sobre"></a>
+      <a href="https://www.youtube.com/@junkatana" target="_blank" rel="noopener">YouTube</a>
+      <a href="https://x.com/junkatanagames" target="_blank" rel="noopener">X</a>
+      <a href="https://github.com/junkatana" target="_blank" rel="noopener">GitHub</a>
+    </nav>
   </header>
 
   <main>
     <section id="projetos">
+      <h2 class="titulo-secao" data-t="projetos"></h2>
       <div class="filtros" role="group">
         <button class="filtro ativo" data-tipo="todos" data-t="todos"></button>
         <button class="filtro" data-tipo="port" data-t="filtro_port"></button>
@@ -47,7 +55,7 @@
       <p id="vazio" class="vazio" data-t="vazio" hidden></p>
     </section>
 
-    <section id="sobre" class="sobre">
+    <section id="sobre" class="sobre janela">
       <h2 data-t="sobre"></h2>
       <p data-t="sobre_texto"></p>
       <p class="aviso" data-t="aviso"></p>
