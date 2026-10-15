@@ -1,0 +1,136 @@
+:root {
+  --fundo: #0f1020;
+  --painel: #1a1c33;
+  --borda: #2e3157;
+  --texto: #e8e8f2;
+  --suave: #a3a6c4;
+  --destaque: #ffcc33;
+  --port: #4fa3ff;
+  --traducao: #57d68d;
+  --romhack: #ff6fae;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--fundo);
+  color: var(--texto);
+  font-family: "Inter", system-ui, sans-serif;
+  line-height: 1.6;
+}
+
+a { color: var(--destaque); }
+
+h1, h2, h3, .filtro, nav a, .capa-texto {
+  font-family: "Press Start 2P", monospace;
+}
+
+/* ---------- topo ---------- */
+.topo {
+  border-bottom: 4px solid var(--destaque);
+  background:
+    repeating-linear-gradient(0deg, rgba(255,255,255,.03) 0 2px, transparent 2px 4px),
+    linear-gradient(180deg, #23265a, var(--fundo));
+  padding: 56px 16px 40px;
+  text-align: center;
+}
+.perfil {
+  display: block;
+  margin: 0 auto 20px;
+  width: 128px;
+  height: 128px;
+  border: 4px solid var(--destaque);
+  box-shadow: 6px 6px 0 #8a2be2;
+  image-rendering: pixelated;
+}
+.topo h1 {
+  margin: 0;
+  font-size: clamp(1.6rem, 6vw, 3rem);
+  color: var(--destaque);
+  text-shadow: 4px 4px 0 #8a2be2;
+  letter-spacing: 2px;
+}
+.subtitulo { color: var(--suave); margin: 16px 0 24px; }
+nav { display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; }
+nav a { color: var(--texto); text-decoration: none; font-size: .7rem; }
+nav a:hover { color: var(--destaque); }
+
+/* ---------- conteúdo ---------- */
+main { max-width: 1100px; margin: 0 auto; padding: 32px 16px; }
+
+.filtros { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; margin-bottom: 28px; }
+.filtro {
+  background: var(--painel);
+  color: var(--texto);
+  border: 2px solid var(--borda);
+  padding: 10px 14px;
+  font-size: .65rem;
+  cursor: pointer;
+}
+.filtro:hover { border-color: var(--destaque); }
+.filtro.ativo { background: var(--destaque); color: #1a1a1a; border-color: var(--destaque); }
+
+.grade {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+  gap: 22px;
+}
+
+.cartao {
+  background: var(--painel);
+  border: 2px solid var(--borda);
+  display: flex;
+  flex-direction: column;
+  transition: transform .15s, border-color .15s;
+}
+.cartao:hover { transform: translateY(-3px); border-color: var(--destaque); }
+
+.capa {
+  aspect-ratio: 4 / 3;
+  background: #090a16;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  border-bottom: 2px solid var(--borda);
+}
+.capa img { width: 100%; height: 100%; object-fit: cover; image-rendering: pixelated; }
+.capa-texto { color: var(--borda); font-size: .8rem; text-align: center; padding: 16px; }
+
+.corpo { padding: 16px 18px 20px; display: flex; flex-direction: column; flex: 1; }
+.corpo h3 { font-size: .8rem; line-height: 1.5; margin: 10px 0 6px; }
+.plataforma { color: var(--destaque); font-size: .85rem; font-weight: 600; margin: 0 0 8px; }
+.resumo { color: var(--suave); font-size: .92rem; margin: 0; flex: 1; }
+
+.etiquetas { display: flex; gap: 6px; flex-wrap: wrap; }
+.etiqueta { font-size: .7rem; font-weight: 600; padding: 2px 8px; border: 1px solid; }
+.tipo-port { color: var(--port); }
+.tipo-traducao { color: var(--traducao); }
+.tipo-romhack { color: var(--romhack); }
+.status-concluido { color: var(--traducao); background: rgba(87,214,141,.1); }
+.status-em-andamento { color: var(--destaque); background: rgba(255,204,51,.1); }
+.status-pausado { color: var(--suave); }
+
+.links { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 14px; }
+.botao {
+  background: var(--destaque);
+  color: #1a1a1a;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: .85rem;
+  padding: 6px 12px;
+}
+.botao:hover { filter: brightness(1.1); }
+
+.vazio { text-align: center; color: var(--suave); }
+
+.sobre {
+  margin-top: 56px;
+  background: var(--painel);
+  border: 2px solid var(--borda);
+  padding: 24px;
+}
+.sobre h2 { font-size: 1rem; color: var(--destaque); margin-top: 0; }
+.aviso { color: var(--suave); font-size: .9rem; }
+
+footer { text-align: center; color: var(--suave); font-size: .8rem; padding: 24px 16px 40px; }
