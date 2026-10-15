@@ -5,7 +5,7 @@
 //
 //  Campos de cada projeto:
 //    id         nome curto, usado no endereço: projeto.html?id=<id>
-//    titulo     nome do jogo
+//    titulo     nome do jogo (texto simples ou { pt, en })
 //    tipo       "port", "traducao", "romhack" ou "emulador"
 //    de / para  plataforma de origem e de destino
 //    status     "concluido", "em-andamento" ou "pausado"
@@ -188,6 +188,49 @@ const PROJETOS = [
     requer: {
       pt: ["Phantasy Star (USA, Europe) (Rev A) — CRC32 00BEF1D7"],
       en: ["Phantasy Star (USA, Europe) (Rev A) — CRC32 00BEF1D7"]
+    }
+  },
+  {
+    id: "solstice",
+    titulo: { pt: "Solstice — Tradução PT-BR", en: "Solstice — Portuguese Translation" },
+    tipo: "traducao",
+    de: "NES",
+    para: "NES",
+    status: "concluido",
+    capa: "img/solstice/titulo.png",
+    resumo: {
+      pt: "Tradução para o português de Solstice: The Quest for the Staff of Demnos, lançada em 2009. Textos acentuados e gráficos editados.",
+      en: "Brazilian Portuguese translation of Solstice: The Quest for the Staff of Demnos, released in 2009. Accented text and edited graphics."
+    },
+    texto: {
+      pt: [
+        "Solstice (Software Creations, 1990) é um jogo de aventura e quebra-cabeças em visão isométrica para o NES. O mago Shadax precisa atravessar as salas de um castelo para reunir as partes do Cajado de Demnos e salvar a princesa Eleanor.",
+        "Esta tradução foi lançada em 18/08/2009 e é o único trabalho de romhacking daquela época que ainda existe na internet, preservado no PO.B.R.E. Todos os textos foram traduzidos e acentuados, e foi a primeira vez que Junkatana editou os gráficos de um jogo, incluindo o logotipo \"Solstício\" da tela de título.",
+        "Os textos foram traduzidos em dois dias. O que mais deu trabalho foram os gráficos, editados na raça, sem as ferramentas e a experiência de hoje."
+      ],
+      en: [
+        "Solstice (Software Creations, 1990) is an isometric adventure and puzzle game for the NES. The wizard Shadax must make his way through the rooms of a castle to gather the pieces of the Staff of Demnos and rescue Princess Eleanor.",
+        "This translation was released on 08/18/2009 and is the only romhacking work from that time still available online, preserved on PO.B.R.E. All text was translated with proper accents, and it was the first time Junkatana edited a game's graphics, including the \"Solstício\" logo on the title screen.",
+        "The text took two days to translate. The graphics were the hard part, edited by sheer persistence, without today's tools and experience."
+      ]
+    },
+    destaques: {
+      pt: ["100% dos textos traduzidos e acentuados", "Gráficos editados, inclusive o logotipo", "Versão 1.0, lançada em 18/08/2009", "Preservada no PO.B.R.E"],
+      en: ["100% of the text translated, with accents", "Edited graphics, including the logo", "Version 1.0, released on 08/18/2009", "Preserved on PO.B.R.E"]
+    },
+    galeria: [
+      { img: "img/solstice/titulo.png", legenda: { pt: "Tela de título com o logotipo traduzido", en: "Title screen with the translated logo" } },
+      { img: "img/solstice/historia.png", legenda: { pt: "Abertura", en: "Opening" } },
+      { img: "img/solstice/inventario.png", legenda: { pt: "Tela de itens", en: "Item screen" } }
+    ],
+    links: [
+      { texto: { pt: "Baixar IPS", en: "Download IPS" }, url: "downloads/solstice-nes-traducao-ptbr-1.0.ips" },
+      { texto: { pt: "Página no PO.B.R.E", en: "PO.B.R.E page" }, url: "https://romhackers.org/traducoes/console/nes/solstice-the-quest-for-the-staff-of-demnos-junkatana/" }
+    ],
+    versao: "1.0",
+    requer: {
+      pt: ["Solstice - The Quest for the Staff of Demnos (U) [!] — CRC32 1D60732E"],
+      en: ["Solstice - The Quest for the Staff of Demnos (U) [!] — CRC32 1D60732E"]
     }
   },
   {

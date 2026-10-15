@@ -11,14 +11,14 @@ function cartao(p) {
   const capa = el("div", "capa");
   const img = document.createElement("img");
   img.src = p.capa;
-  img.alt = p.titulo;
+  img.alt = tr(p.titulo);
   img.loading = "lazy";
   capa.appendChild(img);
   a.appendChild(capa);
 
   const corpo = el("div", "corpo");
   corpo.appendChild(etiquetas(p));
-  corpo.appendChild(el("h3", null, p.titulo));
+  corpo.appendChild(el("h3", null, tr(p.titulo)));
   corpo.appendChild(plataforma(p));
   corpo.appendChild(el("p", "resumo", tr(p.resumo)));
   corpo.appendChild(el("span", "ver", t("ver")));
@@ -29,10 +29,16 @@ function cartao(p) {
 function desenharHistoria() {
   const linha = document.getElementById("linha-do-tempo");
   linha.replaceChildren();
-  for (const [quando, texto] of TEXTOS[LINGUA].historia_marcos) {
+  for (const [quando, texto, projetoId] of TEXTOS[LINGUA].historia_marcos) {
     const li = el("li", "marco");
     li.appendChild(el("span", "marco-quando", quando));
-    li.appendChild(el("p", "marco-texto janela", texto));
+    const p = el("p", "marco-texto janela", texto);
+    if (projetoId) {
+      const a = el("a", "marco-link", t("ver_traducao") + " ▶");
+      a.href = "projeto.html?id=" + projetoId + "&lang=" + LINGUA;
+      p.append(" ", a);
+    }
+    li.appendChild(p);
     linha.appendChild(li);
   }
 }

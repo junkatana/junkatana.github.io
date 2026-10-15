@@ -514,3 +514,6 @@ footer { text-align: center; color: var(--suave); font-size: .85rem; padding: 28
   margin-bottom: 8px;
 }
 .marco-texto { margin: 0; padding: 14px 18px; color: var(--texto); }
+.console.nes { background: #8b8b8b; color: #1a1a1a; box-shadow: inset 0 -2px 0 #c4001f; }
+.marco-link { display: inline-block; margin-top: 6px; font-family: "Pixelify Sans", monospace; text-decoration: none; }
+.marco-link:hover { text-decoration: underline; }

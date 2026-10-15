@@ -26,13 +26,13 @@ function desenhar() {
     area.appendChild(el("p", "vazio", t("nao_encontrado")));
     return;
   }
-  document.title = projeto.titulo + " — Junkatana";
+  document.title = tr(projeto.titulo) + " — Junkatana";
 
   // Cabeçalho do projeto
   const topo = el("div", "projeto-topo");
   const info = el("div", "projeto-info janela");
   info.appendChild(etiquetas(projeto));
-  info.appendChild(el("h1", null, projeto.titulo));
+  info.appendChild(el("h1", null, tr(projeto.titulo)));
   info.appendChild(plataforma(projeto));
   info.appendChild(el("p", "resumo-grande", tr(projeto.resumo)));
   if (projeto.links && projeto.links.length) {
@@ -69,7 +69,7 @@ function desenhar() {
   const capa = document.createElement("img");
   capa.className = "projeto-capa";
   capa.src = projeto.capa;
-  capa.alt = projeto.titulo;
+  capa.alt = tr(projeto.titulo);
   topo.appendChild(capa);
   area.appendChild(topo);
 
