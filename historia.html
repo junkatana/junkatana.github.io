@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>História — Junkatana</title>
+  <meta name="description" content="A história de Junkatana: do Turbo Game ao romhacking com inteligência artificial.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Pixelify+Sans:wght@400;600&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" type="image/png" href="img/favicon.png">
+  <meta property="og:image" content="https://junkatana.github.io/img/perfil.png">
+</head>
+<body>
+  <div class="estrelas" aria-hidden="true"></div>
+  <div class="lingua" role="group" aria-label="Idioma / Language">
+    <button data-lingua="pt">PT</button>
+    <button data-lingua="en">EN</button>
+  </div>
+
+  <header class="barra">
+    <a class="marca" href="index.html">
+      <img src="img/perfil.png" alt="" width="40" height="40">
+      <span>JUNKATANA</span>
+    </a>
+    <a class="voltar" href="index.html" data-t="voltar"></a>
+  </header>
+
+  <main>
+    <div class="heroi historia-heroi">
+      <div class="retrato janela">
+        <img class="perfil" src="img/perfil.png" alt="Junkatana" width="160" height="160">
+      </div>
+      <div class="janela fala">
+        <h1 data-t="historia_titulo"></h1>
+        <p class="subtitulo" id="intro"></p>
+        <span class="seta" aria-hidden="true">▼</span>
+      </div>
+    </div>
+
+    <ol id="marcos" class="marcos"></ol>
+
+    <div class="fim">
+      <p class="continua" data-t="continua"></p>
+      <a class="botao" id="ver-projetos" href="index.html#projetos" data-t="ver_projetos"></a>
+    </div>
+  </main>
+
+  <footer>
+    <p>© <span id="ano"></span> Junkatana · <span data-t="rodape"></span></p>
+  </footer>
+
+  <script src="historia.js"></script>
+  <script src="comum.js"></script>
+  <script src="historia-pagina.js"></script>
+</body>
+</html>

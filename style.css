@@ -467,53 +467,120 @@ footer { text-align: center; color: var(--suave); font-size: .85rem; padding: 28
 .requer li { font-family: ui-monospace, "SFMono-Regular", Menlo, monospace; font-size: .82rem; overflow-wrap: anywhere; }
 .como-aplicar { margin: 0; }
 
-/* ---------- história (linha do tempo) ---------- */
-.historia { margin-top: 64px; max-width: 860px; }
-.historia-intro {
-  margin: 0 0 28px;
-  padding: 18px 22px;
-  font-size: 1.15rem;
-  line-height: 1.6;
-}
-.linha-do-tempo {
-  list-style: none;
-  margin: 0;
-  padding: 0 0 0 28px;
-  position: relative;
-}
-/* trilha pontilhada como num mapa de RPG */
-.linha-do-tempo::before {
+/* ---------- página História: cada marco é uma "fase" ---------- */
+.historia-heroi { margin-top: 28px; }
+.marcos { list-style: none; margin: 56px 0 0; padding: 0; position: relative; }
+/* trilha pontilhada ligando as fases, como num mapa de RPG */
+.marcos::before {
   content: "";
   position: absolute;
-  left: 8px;
-  top: 6px;
-  bottom: 6px;
+  left: 50%;
+  top: 0;
+  bottom: 0;
   width: 4px;
+  transform: translateX(-50%);
   background: repeating-linear-gradient(180deg, var(--ouro) 0 8px, transparent 8px 16px);
-  opacity: .6;
+  opacity: .35;
 }
-.marco { position: relative; margin-bottom: 26px; }
-.marco::before {
+.marco-fase {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 56px;
+  align-items: center;
+  margin-bottom: 56px;
+}
+.marco-fase::before {
   content: "";
   position: absolute;
-  left: -27px;
-  top: 6px;
-  width: 14px;
-  height: 14px;
+  left: 50%;
+  top: 50%;
+  width: 16px;
+  height: 16px;
+  transform: translate(-50%, -50%);
   background: var(--ouro);
   border: 3px solid #05071a;
   box-shadow: 0 0 0 2px var(--ouro);
 }
-.marco:last-child::before { background: var(--rosa); box-shadow: 0 0 0 2px var(--rosa); }
+.marco-fase:last-child::before { background: var(--rosa); box-shadow: 0 0 0 2px var(--rosa); }
+.marco-fase:nth-child(even) .marco-texto-lado { order: 2; }
+
+.marco-cabeca { display: flex; align-items: baseline; gap: 12px; margin: 0 0 10px; }
+.marco-numero {
+  font-family: "Press Start 2P", monospace;
+  font-size: .7rem;
+  color: var(--suave);
+}
 .marco-quando {
-  display: inline-block;
   font-family: "Pixelify Sans", monospace;
-  font-size: 1.3rem;
+  font-size: 1.6rem;
   font-weight: 600;
   color: var(--ouro);
-  margin-bottom: 8px;
 }
-.marco-texto { margin: 0; padding: 14px 18px; color: var(--texto); }
-.console.nes { background: #8b8b8b; color: #1a1a1a; box-shadow: inset 0 -2px 0 #c4001f; }
-.marco-link { display: inline-block; margin-top: 6px; font-family: "Pixelify Sans", monospace; text-decoration: none; }
+.marco-texto { margin: 0; padding: 18px 22px; font-size: 1.02rem; }
+
+.marco-figura { margin: 0; }
+.marco-tela {
+  position: relative;
+  background: #000;
+  border: 3px solid var(--borda);
+  border-radius: var(--raio);
+  box-shadow: 0 0 0 3px #05071a, 0 14px 30px rgba(0, 0, 0, .5);
+  overflow: hidden;
+  aspect-ratio: 8 / 7;
+}
+.marco-tela::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse at 30% 0%, rgba(255, 255, 255, .12), transparent 60%),
+    radial-gradient(ellipse at center, transparent 60%, rgba(0, 0, 0, .45));
+}
+.marco-tela img { width: 100%; height: 100%; object-fit: contain; image-rendering: pixelated; display: block; }
+.marco-figura figcaption { color: var(--suave); font-size: .9rem; margin-top: 10px; }
+.marco-link { font-family: "Pixelify Sans", monospace; text-decoration: none; white-space: nowrap; }
 .marco-link:hover { text-decoration: underline; }
+
+/* tela preta de "início de fase", para os marcos sem imagem */
+.tela-fase {
+  aspect-ratio: 8 / 7;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  background: #000;
+  border: 3px solid var(--borda);
+  border-radius: var(--raio);
+  box-shadow: 0 0 0 3px #05071a, 0 14px 30px rgba(0, 0, 0, .5);
+  text-align: center;
+  padding: 16px;
+}
+.tela-fase-numero {
+  font-family: "Press Start 2P", monospace;
+  font-size: clamp(1.1rem, 3vw, 1.8rem);
+  color: #fff;
+}
+.tela-fase-quando {
+  font-family: "Press Start 2P", monospace;
+  font-size: clamp(.7rem, 1.6vw, .95rem);
+  color: var(--ouro);
+  animation: piscar 1.2s steps(1) infinite;
+}
+
+.fim { text-align: center; margin: 24px 0 16px; }
+.continua {
+  font-family: "Press Start 2P", monospace;
+  font-size: clamp(.9rem, 2.4vw, 1.3rem);
+  color: var(--ouro);
+  margin: 0 0 22px;
+}
+
+@media (max-width: 760px) {
+  .marcos::before, .marco-fase::before { display: none; }
+  .marco-fase { grid-template-columns: minmax(0, 1fr); gap: 18px; }
+  .marco-fase:nth-child(even) .marco-texto-lado { order: 0; }
+}
+.historia-heroi .subtitulo { font-family: "Inter", system-ui, sans-serif; font-size: clamp(1rem, 2vw, 1.2rem); }

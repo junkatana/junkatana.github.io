@@ -30,7 +30,8 @@ exatamente **junkatana.github.io**.
 
 - **Projetos:** tudo fica em `projetos.js`. Cada bloco `{ ... }` vira um cartão na
   página inicial e uma página própria em `projeto.html?id=<id>`.
-- **Duas línguas:** todo texto é escrito assim: `{ pt: "Olá", en: "Hello" }`.
+- **Duas línguas:** todo texto é escrito assim: `{ pt: "Olá", en: "Hello" }`. Quem está no Brasil (pelo fuso horário) vê em português; o resto, em inglês.
+- **História:** o texto da página `historia.html` fica em `historia.js`.
   Os textos fixos do site (menus, botões) ficam em `comum.js`.
 - **Imagens:** coloque em `img/<projeto>/` e adicione na `galeria`
   (`{ img: "img/...", legenda: { pt: "...", en: "..." } }`). O campo `capa` é a
