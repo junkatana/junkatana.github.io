@@ -156,8 +156,8 @@ const PROJETOS = [
     status: "concluido",
     capa: "img/phantasy-star/porta-patch.png",
     resumo: {
-      pt: "Minimapa automático nas dungeons, feito em código Z80 dentro da própria ROM. Feito para o hardware do Master System.",
-      en: "An automatic minimap in the dungeons, written in Z80 code inside the ROM itself. Made for the Master System hardware."
+      pt: "Minimapa automático nas dungeons, feito em código Z80 dentro da própria ROM. Versões para a ROM brasileira e a americana/europeia.",
+      en: "An automatic minimap in the dungeons, written in Z80 code inside the ROM itself. Versions for the Brazilian and the US/European ROM."
     },
     texto: {
       pt: [
@@ -170,8 +170,8 @@ const PROJETOS = [
       ]
     },
     destaques: {
-      pt: ["Painel de 48 × 56 pixels, sempre visível ao andar e virar", "Registra portas atravessadas", "Compatível com o save original", "Para Phantasy Star (USA, Europe) (Rev A)"],
-      en: ["48 × 56 pixel panel, always visible while walking and turning", "Records doors you walk through", "Compatible with original save files", "For Phantasy Star (USA, Europe) (Rev A)"]
+      pt: ["Painel de 48 × 56 pixels, sempre visível ao andar e virar", "Registra portas atravessadas", "Compatível com o save original", "Versões para a ROM brasileira (MAPA) e americana/europeia (MAP)"],
+      en: ["48 × 56 pixel panel, always visible while walking and turning", "Records doors you walk through", "Compatible with original save files", "Versions for the Brazilian ROM (MAPA) and the US/European ROM (MAP)"]
     },
     galeria: [
       { img: "img/phantasy-star/demo.gif", legenda: { pt: "O minimapa em ação", en: "The minimap in action" } },
@@ -179,15 +179,18 @@ const PROJETOS = [
       { img: "img/phantasy-star/porta-patch.png", legenda: { pt: "Dungeon com o minimapa", en: "Dungeon with the minimap" } },
       { img: "img/phantasy-star/caminho.png", legenda: { pt: "Caminho registrado", en: "Recorded path" } },
       { img: "img/phantasy-star/bau-dialogo.png", legenda: { pt: "O minimapa some nas caixas de diálogo", en: "The minimap hides in dialogue boxes" } },
+      { img: "img/phantasy-star/br-caminho.png", legenda: { pt: "Versão brasileira, com o título MAPA", en: "Brazilian version, titled MAPA" } },
+      { img: "img/phantasy-star/br-dungeon-azul.png", legenda: { pt: "Versão brasileira em uma dungeon azul", en: "Brazilian version in a blue dungeon" } },
       { img: "img/phantasy-star/cidade-patch.png", legenda: { pt: "Fora da dungeon, nada muda", en: "Outside dungeons, nothing changes" } }
     ],
     links: [
-      { texto: { pt: "Baixar IPS", en: "Download IPS" }, url: "downloads/phantasy-star-sms-map-hack-1.1.ips" }
+      { texto: { pt: "Baixar IPS (ROM brasileira)", en: "Download IPS (Brazilian ROM)" }, url: "downloads/phantasy-star-sms-map-hack-v3-br.ips" },
+      { texto: { pt: "Baixar IPS (ROM USA/Europa)", en: "Download IPS (USA/Europe ROM)" }, url: "downloads/phantasy-star-sms-map-hack-v3-us.ips" }
     ],
-    versao: "1.1",
+    versao: "V3",
     requer: {
-      pt: ["Phantasy Star (USA, Europe) (Rev A) — CRC32 00BEF1D7"],
-      en: ["Phantasy Star (USA, Europe) (Rev A) — CRC32 00BEF1D7"]
+      pt: ["Phantasy Star (Brazil) — CRC32 75971BEF", "Phantasy Star (USA, Europe) (Rev A) — CRC32 00BEF1D7"],
+      en: ["Phantasy Star (Brazil) — CRC32 75971BEF", "Phantasy Star (USA, Europe) (Rev A) — CRC32 00BEF1D7"]
     }
   },
   {
