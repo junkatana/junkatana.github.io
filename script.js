@@ -26,7 +26,19 @@ function cartao(p) {
   return a;
 }
 
+function desenharHistoria() {
+  const linha = document.getElementById("linha-do-tempo");
+  linha.replaceChildren();
+  for (const [quando, texto] of TEXTOS[LINGUA].historia_marcos) {
+    const li = el("li", "marco");
+    li.appendChild(el("span", "marco-quando", quando));
+    li.appendChild(el("p", "marco-texto janela", texto));
+    linha.appendChild(li);
+  }
+}
+
 function desenhar() {
+  desenharHistoria();
   lista.replaceChildren();
   const itens = PROJETOS.filter(p => filtroAtual === "todos" || p.tipo === filtroAtual);
   itens.forEach(p => lista.appendChild(cartao(p)));
