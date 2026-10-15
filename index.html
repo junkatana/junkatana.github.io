@@ -4,23 +4,31 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Junkatana — Ports e Romhacks</title>
-  <meta name="description" content="Ports de jogos, traduções e romhacks feitos por Junkatana.">
+  <meta name="description" content="Ports de jogos, traduções, romhacks e emuladores feitos por Junkatana. Game ports, translations, romhacks and emulators by Junkatana.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Inter:wght@400;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
   <link rel="icon" type="image/png" href="img/favicon.png">
+  <meta property="og:title" content="Junkatana">
   <meta property="og:image" content="https://junkatana.github.io/img/perfil.png">
 </head>
 <body>
+  <div class="lingua" role="group" aria-label="Idioma / Language">
+    <button data-lingua="pt">PT</button>
+    <button data-lingua="en">EN</button>
+  </div>
+
   <header class="topo">
     <div class="topo-conteudo">
       <img class="perfil" src="img/perfil.png" alt="Junkatana" width="128" height="128">
       <h1>JUNKATANA</h1>
-      <p class="subtitulo">Ports de jogos, traduções e romhacks para consoles clássicos</p>
+      <p class="subtitulo" data-t="subtitulo"></p>
       <nav>
-        <a href="#projetos">Projetos</a>
-        <a href="#sobre">Sobre</a>
+        <a href="#projetos" data-t="projetos"></a>
+        <a href="#sobre" data-t="sobre"></a>
+        <a href="https://www.youtube.com/@junkatana" target="_blank" rel="noopener">YouTube</a>
+        <a href="https://x.com/junkatanagames" target="_blank" rel="noopener">X</a>
         <a href="https://github.com/junkatana" target="_blank" rel="noopener">GitHub</a>
       </nav>
     </div>
@@ -28,30 +36,30 @@
 
   <main>
     <section id="projetos">
-      <div class="filtros" role="group" aria-label="Filtrar projetos">
-        <button class="filtro ativo" data-tipo="todos">Todos</button>
-        <button class="filtro" data-tipo="port">Ports</button>
-        <button class="filtro" data-tipo="traducao">Traduções</button>
-        <button class="filtro" data-tipo="romhack">Romhacks</button>
+      <div class="filtros" role="group">
+        <button class="filtro ativo" data-tipo="todos" data-t="todos"></button>
+        <button class="filtro" data-tipo="port" data-t="filtro_port"></button>
+        <button class="filtro" data-tipo="traducao" data-t="filtro_traducao"></button>
+        <button class="filtro" data-tipo="romhack" data-t="filtro_romhack"></button>
+        <button class="filtro" data-tipo="emulador" data-t="filtro_emulador"></button>
       </div>
       <div id="lista" class="grade"></div>
-      <p id="vazio" class="vazio" hidden>Nenhum projeto nesta categoria ainda.</p>
+      <p id="vazio" class="vazio" data-t="vazio" hidden></p>
     </section>
 
     <section id="sobre" class="sobre">
-      <h2>Sobre</h2>
-      <p>Aqui ficam os projetos em que estou trabalhando: jogos levados de uma plataforma para outra,
-        traduções e modificações em jogos clássicos.</p>
-      <p class="aviso">Os arquivos disponibilizados são patches. Para jogar, aplique o patch na sua
-        própria cópia original do jogo (por exemplo, com o <a href="https://www.marcrobledo.com/RomPatcher.js/" target="_blank" rel="noopener">Rom Patcher JS</a>).</p>
+      <h2 data-t="sobre"></h2>
+      <p data-t="sobre_texto"></p>
+      <p class="aviso" data-t="aviso"></p>
     </section>
   </main>
 
   <footer>
-    <p>© <span id="ano"></span> Junkatana · Projetos de fã, sem fins lucrativos. Todos os jogos pertencem aos seus donos.</p>
+    <p>© <span id="ano"></span> Junkatana · <span data-t="rodape"></span></p>
   </footer>
 
   <script src="projetos.js"></script>
+  <script src="comum.js"></script>
   <script src="script.js"></script>
 </body>
 </html>

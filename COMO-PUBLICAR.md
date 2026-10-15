@@ -28,11 +28,17 @@ exatamente **junkatana.github.io**.
 
 ## Atualizar
 
-- **Adicionar/editar projeto:** edite `projetos.js` (cada bloco `{ ... }` é um cartão).
-- **Imagem:** coloque o arquivo em `img/` e preencha o campo `imagem`.
+- **Projetos:** tudo fica em `projetos.js`. Cada bloco `{ ... }` vira um cartão na
+  página inicial e uma página própria em `projeto.html?id=<id>`.
+- **Duas línguas:** todo texto é escrito assim: `{ pt: "Olá", en: "Hello" }`.
+  Os textos fixos do site (menus, botões) ficam em `comum.js`.
+- **Imagens:** coloque em `img/<projeto>/` e adicione na `galeria`
+  (`{ img: "img/...", legenda: { pt: "...", en: "..." } }`). O campo `capa` é a
+  imagem do cartão e do topo da página.
+- **Vídeo:** campo `video` com um `.mp4` pequeno (até uns 10 MB).
 - **Downloads:** no repositório do projeto, crie uma *Release* e anexe o patch
-  `.ips`/`.bps`; depois cole o link no campo `links`:
-  `links: [{ texto: "Baixar patch", url: "https://github.com/junkatana/..." }]`
+  `.ips`/`.bps`; depois cole o link em `links`:
+  `{ texto: { pt: "Baixar patch", en: "Download patch" }, url: "https://..." }`
 
 Depois de editar:
 

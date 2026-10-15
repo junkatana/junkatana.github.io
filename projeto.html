@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Junkatana</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" type="image/png" href="img/favicon.png">
+  <meta property="og:image" content="https://junkatana.github.io/img/perfil.png">
+</head>
+<body>
+  <div class="lingua" role="group" aria-label="Idioma / Language">
+    <button data-lingua="pt">PT</button>
+    <button data-lingua="en">EN</button>
+  </div>
+
+  <header class="barra">
+    <a class="marca" href="index.html">
+      <img src="img/perfil.png" alt="" width="40" height="40">
+      <span>JUNKATANA</span>
+    </a>
+    <a class="voltar" href="index.html" data-t="voltar"></a>
+  </header>
+
+  <main id="projeto"></main>
+
+  <dialog id="ampliada" class="ampliada">
+    <img alt="">
+    <p></p>
+  </dialog>
+
+  <footer>
+    <p>© <span id="ano"></span> Junkatana · <span data-t="rodape"></span></p>
+  </footer>
+
+  <script src="projetos.js"></script>
+  <script src="comum.js"></script>
+  <script src="projeto.js"></script>
+</body>
+</html>
