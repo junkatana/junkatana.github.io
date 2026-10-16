@@ -194,6 +194,60 @@ const PROJETOS = [
     }
   },
   {
+    id: "starflight",
+    titulo: { pt: "Starflight — Tradução PT-BR", en: "Starflight — Portuguese Translation" },
+    tipo: "traducao",
+    de: "Mega Drive",
+    para: "Mega Drive",
+    status: "em-andamento",
+    capa: "img/starflight/transmissao-amigavel.png",
+    resumo: {
+      pt: "Tradução para o português do clássico de exploração espacial. Todos os 731 textos traduzidos, fonte com acentos e telas da estação redesenhadas.",
+      en: "Brazilian Portuguese translation of the classic space exploration game. All 731 text entries translated, a font with accents and redrawn station screens."
+    },
+    texto: {
+      pt: [
+        "Starflight chegou ao Mega Drive em 1991, publicado pela Electronic Arts, a partir do clássico que a Binary Systems lançou no PC em 1986. Você é capitão de uma nave da Interstel, sai da estação de Arth com uma tripulação recrutada por você e explora uma galáxia aberta com centenas de estrelas e planetas: pousa para minerar e catalogar vida, negocia, foge ou luta com alienígenas e junta pistas para descobrir por que as estrelas estão explodindo.",
+        "Quase tudo que importa no jogo vem das conversas com as raças alienígenas, e era aí que o inglês mais atrapalhava. A tradução respeita o jeito de falar de cada uma: os Spemin são fanfarrões e covardes, os Thrynn sibilam (SSOMOS, IMPERRIO), os Velox falam com gramática quebrada (EU SER, NOS ESTA RENDE), os Elowan são poéticos e arcaicos (SEDE BEM-VINDOS, DIZEI) e os Mechan 9 e a sonda Nomad falam como máquinas.",
+        "A fonte do jogo não tinha acentos: nove letras acentuadas foram desenhadas no lugar de símbolos que nenhum texto usava. Os títulos gráficos das telas da estação foram redesenhados com as letras do próprio jogo. A tradução foi feita sobre o hack Enhanced Colors, que melhora as cores do jogo, e as pistas da história usam um glossário fixo (OS ANTIGOS, VELHO IMPÉRIO, PLANETA CRISTAL...). Coordenadas e números, que também são pistas, não foram alterados.",
+        "Esta versão foi testada do início do jogo até o primeiro contato com alienígenas. Ainda faltam a barra do mapa estelar, os nomes dos minerais e das raças na criação de tripulantes, e a revisão do restante da campanha. Relatos de texto estranho são bem-vindos."
+      ],
+      en: [
+        "Starflight came to the Mega Drive in 1991, published by Electronic Arts, based on the classic Binary Systems released on PC in 1986. You are the captain of an Interstel ship, leaving Arth station with a crew you recruited to explore an open galaxy with hundreds of stars and planets: land to mine and catalogue life, trade, flee or fight aliens, and piece together clues to find out why stars are exploding.",
+        "Almost everything that matters in the game comes from talking to alien races, which is where English got in the way the most. The translation keeps each race's voice: the Spemin are boastful cowards, the Thrynn hiss, the Velox speak in broken grammar, the Elowan are poetic and archaic, and the Mechan 9 and the Nomad probe talk like machines.",
+        "The game's font had no accents: nine accented letters were drawn in place of symbols no text used. The graphic titles of the station screens were redrawn with the game's own letters. The translation is built on the Enhanced Colors hack, which improves the game's colours, and story clues use a fixed glossary. Coordinates and numbers, which are also clues, were left untouched.",
+        "This release was tested from the start of the game up to the first alien contact. The starmap bar, mineral names, race names in crew creation and a review of the rest of the campaign are still to come. Reports of odd text are welcome."
+      ]
+    },
+    destaques: {
+      pt: ["731 de 731 textos em português, incluindo 448 falas alienígenas", "Acentos: Á É Í Ó Ú Ã Õ Ç Ê", "Telas da estação com títulos e botões redesenhados", "Testado no Genesis Plus GX, do início ao primeiro contato", "Grupo: Patch Clan"],
+      en: ["731 of 731 text entries in Portuguese, including 448 alien lines", "Accents: Á É Í Ó Ú Ã Õ Ç Ê", "Station screens with redrawn titles and buttons", "Tested on Genesis Plus GX, from the start to first contact", "Group: Patch Clan"]
+    },
+    galeria: [
+      { img: "img/starflight/transmissao-amigavel.png", legenda: { pt: "Primeiro contato: VIEMOS EM PAZ E GOSTARIAMOS DE NOS COMUNICAR", en: "First contact, translated: “we come in peace and would like to communicate”" } },
+      { img: "img/starflight/resposta-alien-1.png", legenda: { pt: "Resposta de uma raça alienígena", en: "An alien race replies" } },
+      { img: "img/starflight/resposta-alien-2.png", legenda: { pt: "Cada raça tem seu jeito de falar", en: "Every race has its own way of speaking" } },
+      { img: "img/starflight/construir-nave.png", legenda: { pt: "Construir Nave, com título e botões redesenhados", en: "Ship Configuration, with redrawn title and buttons" } },
+      { img: "img/starflight/pessoal-novo-tripulante.png", legenda: { pt: "Pessoal: nome do novo tripulante", en: "Personnel: naming a new crew member" } },
+      { img: "img/starflight/alocacao-da-equipe.png", legenda: { pt: "Alocação da equipe", en: "Crew assignment" } },
+      { img: "img/starflight/posto-de-troca-compra.png", legenda: { pt: "Posto de Troca", en: "Trade Depot" } },
+      { img: "img/starflight/camara-de-descompressao.png", legenda: { pt: "Câmara de descompressão", en: "Airlock" } },
+      { img: "img/starflight/menu-navegador.png", legenda: { pt: "Menu do navegador na ponte de comando", en: "Navigator menu on the bridge" } },
+      { img: "img/starflight/objeto-desconhecido.png", legenda: { pt: "IDENTIFICAMOS UM OBJETO DESCONHECIDO", en: "Unknown object detected" } },
+      { img: "img/starflight/mensagem-recebida.png", legenda: { pt: "Mensagem recebida", en: "Incoming message" } },
+      { img: "img/starflight/operacoes-salvar.png", legenda: { pt: "Operações: salvar o jogo", en: "Operations: saving the game" } }
+    ],
+    links: [
+      { texto: { pt: "Baixar IPS", en: "Download IPS" }, url: "downloads/starflight-md-traducao-ptbr-1.1.ips" },
+      { texto: { pt: "Patch Clan", en: "Patch Clan" }, url: "https://www.patchclan.com" }
+    ],
+    versao: "1.1",
+    requer: {
+      pt: ["Starflight (Enhanced Colors), em inglês — CRC32 2E858452", "Não use a ROM USA original. Depois do patch: CRC32 3F2F6D2C"],
+      en: ["Starflight (Enhanced Colors), English — CRC32 2E858452", "Do not use the original USA ROM. After patching: CRC32 3F2F6D2C"]
+    }
+  },
+  {
     id: "solstice",
     titulo: { pt: "Solstice — Tradução PT-BR", en: "Solstice — Portuguese Translation" },
     tipo: "traducao",

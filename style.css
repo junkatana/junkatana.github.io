@@ -584,3 +584,4 @@ footer { text-align: center; color: var(--suave); font-size: .85rem; padding: 28
   .marco-fase:nth-child(even) .marco-texto-lado { order: 0; }
 }
 .historia-heroi .subtitulo { font-family: "Inter", system-ui, sans-serif; font-size: clamp(1rem, 2vw, 1.2rem); }
+body, h1, h2, h3, button, a { font-variant-ligatures: none; }
