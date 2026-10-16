@@ -220,8 +220,8 @@ const PROJETOS = [
       ]
     },
     destaques: {
-      pt: ["731 de 731 textos em português, incluindo 448 falas alienígenas", "Acentos: Á É Í Ó Ú Ã Õ Ç Ê", "Telas da estação com títulos e botões redesenhados", "Testado no Genesis Plus GX, do início ao primeiro contato", "Grupo: Patch Clan"],
-      en: ["731 of 731 text entries in Portuguese, including 448 alien lines", "Accents: Á É Í Ó Ú Ã Õ Ç Ê", "Station screens with redrawn titles and buttons", "Tested on Genesis Plus GX, from the start to first contact", "Group: Patch Clan"]
+      pt: ["731 de 731 textos em português, incluindo 448 falas alienígenas", "Acentos: Á É Í Ó Ú Ã Õ Ç Ê", "Telas da estação com títulos e botões redesenhados", "Testado no Genesis Plus GX, do início ao primeiro contato", "Tradução independente (freelancer)"],
+      en: ["731 of 731 text entries in Portuguese, including 448 alien lines", "Accents: Á É Í Ó Ú Ã Õ Ç Ê", "Station screens with redrawn titles and buttons", "Tested on Genesis Plus GX, from the start to first contact", "Independent (freelance) translation"]
     },
     galeria: [
       { img: "img/starflight/transmissao-amigavel.png", legenda: { pt: "Primeiro contato: VIEMOS EM PAZ E GOSTARIAMOS DE NOS COMUNICAR", en: "First contact, translated: “we come in peace and would like to communicate”" } },
@@ -238,8 +238,7 @@ const PROJETOS = [
       { img: "img/starflight/operacoes-salvar.png", legenda: { pt: "Operações: salvar o jogo", en: "Operations: saving the game" } }
     ],
     links: [
-      { texto: { pt: "Baixar IPS", en: "Download IPS" }, url: "downloads/starflight-md-traducao-ptbr-1.1.ips" },
-      { texto: { pt: "Patch Clan", en: "Patch Clan" }, url: "https://www.patchclan.com" }
+      { texto: { pt: "Baixar IPS", en: "Download IPS" }, url: "downloads/starflight-md-traducao-ptbr-1.1.ips" }
     ],
     versao: "1.1",
     requer: {
