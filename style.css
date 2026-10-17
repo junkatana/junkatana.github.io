@@ -585,3 +585,11 @@ footer { text-align: center; color: var(--suave); font-size: .85rem; padding: 28
 }
 .historia-heroi .subtitulo { font-family: "Inter", system-ui, sans-serif; font-size: clamp(1rem, 2vw, 1.2rem); }
 body, h1, h2, h3, button, a { font-variant-ligatures: none; }
+
+/* ---------- versões extras de um patch ---------- */
+.variante { padding: 22px 26px; }
+.variante > p { color: var(--suave); }
+.passos { margin: 6px 0 4px; padding-left: 22px; }
+.passos li { margin-bottom: 6px; }
+.passos li::marker { color: var(--ouro); font-weight: 600; }
+.variante .galeria { margin-top: 20px; }

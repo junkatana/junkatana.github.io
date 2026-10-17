@@ -18,6 +18,7 @@
 //    links      lista de { texto, url }
 //    versao     versão do patch para download (opcional)
 //    requer     ROM original necessária para aplicar o patch (opcional)
+//    variantes  versões extras do patch, cada uma com titulo, texto, passos, links e galeria (opcional)
 //
 //  Dica: distribua só PATCHES (.ips/.bps), nunca a ROM do jogo.
 // ============================================================
@@ -170,8 +171,8 @@ const PROJETOS = [
       ]
     },
     destaques: {
-      pt: ["Painel de 48 × 56 pixels, sempre visível ao andar e virar", "Registra portas atravessadas", "Compatível com o save original", "Versões para a ROM brasileira (MAPA) e americana/europeia (MAP)"],
-      en: ["48 × 56 pixel panel, always visible while walking and turning", "Records doors you walk through", "Compatible with original save files", "Versions for the Brazilian ROM (MAPA) and the US/European ROM (MAP)"]
+      pt: ["Painel de 48 × 56 pixels, sempre visível ao andar e virar", "Registra portas atravessadas", "Compatível com o save original", "Versões para a ROM brasileira (MAPA), americana/europeia (MAP) e a tradução do SMS Power"],
+      en: ["48 × 56 pixel panel, always visible while walking and turning", "Records doors you walk through", "Compatible with original save files", "Versions for the Brazilian ROM (MAPA), the US/European ROM (MAP) and the SMS Power retranslation"]
     },
     galeria: [
       { img: "img/phantasy-star/demo.gif", legenda: { pt: "O minimapa em ação", en: "The minimap in action" } },
@@ -186,6 +187,44 @@ const PROJETOS = [
     links: [
       { texto: { pt: "Baixar IPS (ROM brasileira)", en: "Download IPS (Brazilian ROM)" }, url: "downloads/phantasy-star-sms-map-hack-v3-br.ips" },
       { texto: { pt: "Baixar IPS (ROM USA/Europa)", en: "Download IPS (USA/Europe ROM)" }, url: "downloads/phantasy-star-sms-map-hack-v3-us.ips" }
+    ],
+    variantes: [
+      {
+        titulo: { pt: "Versão para a tradução do SMS Power (EN 2.6.1)", en: "Version for the SMS Power retranslation (EN 2.6.1)" },
+        texto: {
+          pt: [
+            "A retradução do grupo SMS Power parte da versão japonesa original e traz várias melhorias de qualidade de vida: menu de opções no jogo (velocidade de caminhada, metade das batalhas, fonte), suporte a controle de Mega Drive e um roteiro revisado. Este patch adapta o minimapa V3 para essa versão, com os ganchos reescritos para o código dela.",
+            "A tradução é do SMS Power, não minha: baixe-a no site oficial deles. Este IPS contém só o minimapa e é aplicado por cima da tradução inglesa normal (não a literal)."
+          ],
+          en: [
+            "The SMS Power retranslation is based on the original Japanese release and adds many quality-of-life improvements: an in-game options menu (walk speed, half battles, font), Mega Drive controller support and a revised script. This patch adapts the V3 minimap to that version, with its hooks rewritten for that code.",
+            "The translation is by SMS Power, not me: get it from their official page. This IPS contains only the minimap and goes on top of the normal English translation (not the literal one)."
+          ]
+        },
+        passos: {
+          pt: [
+            "Pegue a ROM Phantasy Star (Japan) — CRC32 6605D36A",
+            "Aplique a tradução do SMS Power 2.6.1, arquivo ps1jert.en.ips (inglês normal) — resultado CRC32 2CD659D4",
+            "Aplique o IPS do minimapa abaixo",
+            "Em flashcart: precisa de mapper Sega e pelo menos 16 KiB de SRAM; sem isso o mapa se desliga sozinho para proteger os saves"
+          ],
+          en: [
+            "Get the Phantasy Star (Japan) ROM — CRC32 6605D36A",
+            "Apply the SMS Power 2.6.1 translation, file ps1jert.en.ips (normal English) — result CRC32 2CD659D4",
+            "Apply the minimap IPS below",
+            "On a flashcart: needs a Sega mapper and at least 16 KiB of SRAM; without it the map switches itself off to protect your saves"
+          ]
+        },
+        links: [
+          { texto: { pt: "Baixar IPS (SMS Power EN 2.6.1)", en: "Download IPS (SMS Power EN 2.6.1)" }, url: "downloads/phantasy-star-smspower-en-2.6.1-map-hack-1.0.ips" },
+          { texto: { pt: "Tradução no SMS Power", en: "Translation at SMS Power" }, url: "https://www.smspower.org/Translations/PhantasyStar-SMS-EN" }
+        ],
+        galeria: [
+          { img: "img/phantasy-star/smspower-dungeon.png", legenda: { pt: "Minimapa na versão do SMS Power", en: "Minimap on the SMS Power version" } },
+          { img: "img/phantasy-star/smspower-dungeon-azul.png", legenda: { pt: "Dungeon azul", en: "Blue dungeon" } },
+          { img: "img/phantasy-star/smspower-opcoes.png", legenda: { pt: "Menu de opções da tradução do SMS Power", en: "SMS Power options menu" } }
+        ]
+      }
     ],
     versao: "V3",
     requer: {

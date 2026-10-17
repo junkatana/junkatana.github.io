@@ -18,6 +18,25 @@ function abrirImagem(item) {
   caixa.showModal();
 }
 
+function galeria(itens) {
+  const grade = el("div", "galeria");
+  for (const item of itens) {
+    const fig = el("figure");
+    const b = el("button", "miniatura");
+    b.type = "button";
+    const img = document.createElement("img");
+    img.src = item.img;
+    img.alt = tr(item.legenda) || "";
+    img.loading = "lazy";
+    b.appendChild(img);
+    b.addEventListener("click", () => abrirImagem(item));
+    fig.appendChild(b);
+    if (item.legenda) fig.appendChild(el("figcaption", null, tr(item.legenda)));
+    grade.appendChild(fig);
+  }
+  return grade;
+}
+
 function desenhar() {
   area.replaceChildren();
   document.querySelector(".voltar").href = "index.html?lang=" + LINGUA;
@@ -89,6 +108,33 @@ function desenhar() {
   }
   area.appendChild(colunas);
 
+  // Versões extras do patch (ex.: para outra tradução)
+  for (const v of projeto.variantes || []) {
+    const s = el("section", "bloco variante janela");
+    s.appendChild(el("h2", null, tr(v.titulo)));
+    (tr(v.texto) || []).forEach(par => s.appendChild(el("p", null, par)));
+    const passos = tr(v.passos) || [];
+    if (passos.length) {
+      const ol = el("ol", "passos");
+      passos.forEach(x => ol.appendChild(el("li", null, x)));
+      s.appendChild(ol);
+    }
+    if (v.links && v.links.length) {
+      const links = el("div", "links");
+      for (const l of v.links) {
+        const a = el("a", "botao", tr(l.texto));
+        a.href = l.url;
+        a.target = "_blank";
+        a.rel = "noopener";
+        if (l.url.startsWith("downloads/")) a.setAttribute("download", "");
+        links.appendChild(a);
+      }
+      s.appendChild(links);
+    }
+    if (v.galeria && v.galeria.length) s.appendChild(galeria(v.galeria));
+    area.appendChild(s);
+  }
+
   // Vídeo
   if (projeto.video) {
     const s = secao(t("video"));
@@ -104,22 +150,7 @@ function desenhar() {
   // Galeria
   if (projeto.galeria && projeto.galeria.length) {
     const s = secao(t("galeria"));
-    const grade = el("div", "galeria");
-    for (const item of projeto.galeria) {
-      const fig = el("figure");
-      const b = el("button", "miniatura");
-      b.type = "button";
-      const img = document.createElement("img");
-      img.src = item.img;
-      img.alt = tr(item.legenda) || "";
-      img.loading = "lazy";
-      b.appendChild(img);
-      b.addEventListener("click", () => abrirImagem(item));
-      fig.appendChild(b);
-      if (item.legenda) fig.appendChild(el("figcaption", null, tr(item.legenda)));
-      grade.appendChild(fig);
-    }
-    s.appendChild(grade);
+    s.appendChild(galeria(projeto.galeria));
     area.appendChild(s);
   }
 }
