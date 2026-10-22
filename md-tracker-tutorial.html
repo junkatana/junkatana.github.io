@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Tutorial do MD Tracker — Junkatana</title>
+  <meta name="description" content="Como compor música de Mega Drive no celular com o MD Tracker: notas, instrumentos FM e PSG, biblioteca, efeitos e exportação para VGM.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Pixelify+Sans:wght@400;600&family=Inter:wght@400;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" type="image/png" href="img/favicon.png">
+  <meta property="og:image" content="https://junkatana.github.io/img/md-tracker/capa.webp">
+</head>
+<body>
+  <div class="estrelas" aria-hidden="true"></div>
+  <div class="lingua" role="group" aria-label="Idioma / Language">
+    <button data-lingua="pt">PT</button>
+    <button data-lingua="en">EN</button>
+  </div>
+
+  <header class="barra">
+    <a class="marca" href="index.html">
+      <img src="img/perfil.png" alt="" width="40" height="40">
+      <span>JUNKATANA</span>
+    </a>
+    <a class="voltar" href="index.html" data-t="voltar"></a>
+  </header>
+
+  <main class="tut">
+    <section class="tut-heroi janela">
+      <div>
+        <p class="tut-selo">MD·TRACKER</p>
+        <h1 data-t="tut_titulo"></h1>
+        <p class="subtitulo" data-t="tut_intro"></p>
+        <div class="links">
+          <a class="botao" href="md-tracker/" data-t="tut_abrir"></a>
+          <a class="botao botao-2" id="link-projeto" href="projeto.html?id=md-tracker" data-t="tut_projeto"></a>
+        </div>
+      </div>
+      <img class="tut-heroi-img" src="img/md-tracker/padrao.webp" alt="" width="400" height="820">
+    </section>
+
+    <nav class="tut-sumario janela" aria-labelledby="sumario-t">
+      <h2 id="sumario-t" data-t="tut_sumario"></h2>
+      <ol id="sumario"></ol>
+    </nav>
+
+    <div id="licoes"></div>
+
+    <div class="fim">
+      <p class="continua" data-t="tut_fim"></p>
+      <a class="botao" href="md-tracker/" data-t="tut_abrir"></a>
+    </div>
+  </main>
+
+  <dialog id="ampliada" class="ampliada">
+    <img alt="">
+    <p></p>
+  </dialog>
+
+  <footer>
+    <p>© <span id="ano"></span> Junkatana · <span data-t="rodape"></span></p>
+  </footer>
+
+  <script src="comum.js"></script>
+  <script src="md-tracker-tutorial.js"></script>
+</body>
+</html>

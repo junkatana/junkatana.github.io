@@ -1,3 +1,5 @@
+<!doctype html>
+<html lang="pt-BR">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,interactive-widget=resizes-content">
 <title>MD Tracker</title>
@@ -140,14 +142,55 @@ p { margin: 0; line-height: 1.5; max-width: 65ch; }
 .startcover button { font-size: 16px; padding: 12px 20px; }
 .chips { display: flex; gap: 6px; flex-wrap: wrap; }
 .chips button { font-size: 13px; padding: 5px 9px; }
+.tp button:disabled { opacity: .35; }
+.tp .hist { margin-right: 2px; }
+@media (max-width: 400px) { .tp { gap: 3px; } .tp button { min-width: 34px; padding: 6px 4px; } .logo { font-size: 13px; } }
+@media (max-width: 360px) { .logo .lt { display: none; } }
+#grid { -webkit-user-select: none; user-select: none; -webkit-touch-callout: none; }
+.f.bsel { background: #34406a; }
+.f.bsel.sel { background: var(--cur); }
+/* floats over the pattern bar so the grid does not move under the finger while selecting */
+.selbar { position: absolute; top: 0; left: 0; right: 0; z-index: 4; min-height: 38px; box-sizing: border-box; display: flex; gap: 6px; align-items: center; padding: 6px max(10px, env(safe-area-inset-right, 0px)) 6px max(10px, env(safe-area-inset-left, 0px)); background: #232c52; border-bottom: 1px solid var(--line); font-size: 13px; flex: none; overflow-x: auto; scrollbar-width: none; }
+.selbar[hidden] { display: none !important; }
+.selbar span { white-space: nowrap; color: var(--fg); }
+.selbar button { padding: 4px 9px; font-size: 13px; white-space: nowrap; }
+.selbar .apagar { background: var(--rec); border-color: var(--rec); color: #fff; }
+/* library */
+#vLib { padding: 0; display: flex; flex-direction: column; overflow: hidden; }
+.libtop { display: flex; gap: 8px; align-items: center; padding: 8px max(10px, env(safe-area-inset-right, 0px)) 8px max(10px, env(safe-area-inset-left, 0px)); border-bottom: 1px solid var(--line); flex: none; }
+.libtop button { white-space: nowrap; flex: none; }
+.libtop h2 { margin: 0; font-size: 15px; white-space: nowrap; }
+.libtop .testando { margin-left: auto; font-size: 12px; color: var(--dim); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-width: 0; }
+.libtop .testando b { color: var(--accent); font-weight: 600; }
+.libcols { flex: 1; min-height: 0; display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr); }
+.libcol { display: flex; flex-direction: column; min-height: 0; padding: 8px; gap: 6px; }
+.libcol + .libcol { border-left: 1px solid var(--line); background: #131620; }
+.libcol h3 { margin: 0; font-size: 12px; }
+.libcol select, .libcol input { width: 100%; font-size: 14px; padding: 6px; }
+.liblist { flex: 1; min-height: 0; overflow: auto; display: flex; flex-direction: column; gap: 3px; overscroll-behavior: contain; }
+.li { display: flex; align-items: center; gap: 4px; background: var(--panel); border: 1px solid var(--line); border-radius: 6px; padding: 2px; flex: none; }
+.li.tocando { border-color: var(--accent); }
+.li .nm { flex: 1; min-width: 0; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow-wrap: anywhere; line-height: 1.25; font-size: 13px; padding: 5px 4px; cursor: pointer; }
+.li .ty { font-size: 10px; color: var(--dim); flex: none; }
+.li button { padding: 5px 9px; font-size: 13px; flex: none; }
+.li .add.on { background: var(--ok); color: #06210f; border-color: var(--ok); }
+.libsend { font-weight: 700; background: var(--accent); color: var(--accent-ink); border-color: var(--accent); padding: 10px 6px; }
+.libsend:disabled { opacity: .4; }
+.libmore { display: flex; gap: 5px; flex-wrap: wrap; }
+.libmore button { font-size: 12px; padding: 4px 8px; }
+.liblist .vazio { font-size: 12px; color: var(--dim); padding: 8px; }
+.dock.libmode .drow:nth-child(2), .dock.libmode .pe { display: none; }
+.bigbtn { font-weight: 700; padding: 10px 14px; background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
 @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
 </style>
 
 <div id="app">
   <header>
-    <div class="logo">MD<b>·</b>TRACKER</div>
+    <div class="logo">MD<b>·</b><span class="lt">TRACKER</span></div>
     <span id="midiDot" title="MIDI"></span>
     <div class="tp">
+      <button id="bUndo" class="hist" aria-label="Desfazer" title="Desfazer (Ctrl+Z)" disabled>↶</button>
+      <button id="bRedo" class="hist" aria-label="Refazer" title="Refazer (Ctrl+Y)" disabled>↷</button>
       <button id="bPlay" aria-label="Tocar música">▶</button>
       <button id="bLoop" aria-label="Repetir padrão">⟲</button>
       <button id="bStop" aria-label="Parar">■</button>
@@ -169,8 +212,10 @@ p { margin: 0; line-height: 1.5; max-width: 65ch; }
         <button id="oNext" aria-label="Próxima ordem">▶</button>
         <span class="sep"></span>
         <button data-op="copy">Copiar canal</button>
+        <button data-op="cut">Recortar</button>
         <button data-op="paste">Colar</button>
-        <button data-op="clear">Limpar</button>
+        <button data-op="clear">Apagar canal</button>
+        <button data-op="all">Selecionar tudo</button>
         <button data-op="t-1">−1 st</button>
         <button data-op="t+1">+1 st</button>
         <button data-op="t-12">−8va</button>
@@ -180,12 +225,24 @@ p { margin: 0; line-height: 1.5; max-width: 65ch; }
         <button data-op="fx+">+ coluna efeito</button>
         <button data-op="fx-">− coluna efeito</button>
       </div>
+      <div class="selbar" id="selbar" hidden>
+        <span id="selInfo"></span>
+        <button class="apagar" data-op="clear">Apagar</button>
+        <button data-op="copy">Copiar</button>
+        <button data-op="cut">Recortar</button>
+        <button data-op="t-1">−1 st</button>
+        <button data-op="t+1">+1 st</button>
+        <button data-op="t-12">−8va</button>
+        <button data-op="t+12">+8va</button>
+        <button data-op="none" aria-label="Cancelar seleção">✕</button>
+      </div>
       <div id="grid" tabindex="0" aria-label="Editor de padrão"></div>
     </section>
     <section class="view" id="vOrd" hidden></section>
     <section class="view" id="vIns" hidden></section>
     <section class="view" id="vSong" hidden></section>
     <section class="view" id="vFile" hidden></section>
+    <section class="view" id="vLib" hidden></section>
     <div class="startcover" id="cover"><button id="bStart">Toque para ligar o som</button></div>
   </main>
   <div class="dock" id="dock">
@@ -534,7 +591,7 @@ class Sequencer {
     this.sink = sink; this.song = null; this.playing = false; this.order = 0; this.row = 0; this.tickInRow = 0;
     this.ticksThisRow = 6; this.speedFlip = 0; this.tickAcc = 0; this.loopPattern = false;
     this.shadow = new Int16Array(512); this.onRow = null; this.trackVisits = false; this.visited = null; this.loopKey = -1; this.onRowStart = null;
-    this.samples = []; this.dac = null; this.dacOn = false; this.lfo = 0;
+    this.samples = []; this.dac = null; this.dacOn = false; this.lfo = 0; this.previewIns = null;
     this.setClock(NTSC);
     this.init();
   }
@@ -721,7 +778,7 @@ class Sequencer {
     } else if (ch.fm && ch.keyOn && (insDirty || ch.volDirty)) { this.loadFM(c); ch.volDirty = false; }
   }
   getIns(ch, fm) {
-    const ins = this.song && this.song.ins[ch.ins];
+    const ins = ch.ins === -2 ? this.previewIns : this.song && this.song.ins[ch.ins];
     if (fm) return ins && ins.type === 'fm' ? ins : DEFAULT_FM;
     return ins && ins.type === 'std' ? ins : DEFAULT_STD;
   }
@@ -848,7 +905,7 @@ class Sequencer {
   // ---- live (keyboard / MIDI) notes
   liveOn(c, n, ins, vol) {
     const ch = this.ch[c];
-    if (ins >= 0 && ins !== ch.ins) { ch.ins = ins; ch.tlOv = [-1, -1, -1, -1]; ch.mulOv = [-1, -1, -1, -1]; ch.arOv = [-1, -1, -1, -1]; ch.fbOv = -1; }
+    if ((ins >= 0 || ins === -2) && ins !== ch.ins) { ch.ins = ins; ch.tlOv = [-1, -1, -1, -1]; ch.mulOv = [-1, -1, -1, -1]; ch.arOv = [-1, -1, -1, -1]; ch.fbOv = -1; }
     if (vol >= 0) ch.vol = Math.min(vol, ch.fm ? 127 : 15);
     ch.pUp = ch.pDn = ch.tPorta = 0; ch.arpX = ch.arpY = 0; ch.vibD = 0; ch.volSlide = 0;
     this.noteOn(c, n);
@@ -910,6 +967,7 @@ function handle(e, m, post) {
     case 'stop': e.seq.stop(); post && post({ t: 'stopped' }); break;
     case 'on': if (e.seq.song) e.seq.liveOn(m.c, m.n, m.i, m.v); break;
     case 'off': e.seq.liveOff(m.c); break;
+    case 'pins': e.seq.previewIns = m.ins; break;   // instrument heard in the library (index -2)
     case 'mute': e.fm.mute = m.fm; e.psg.mute = m.psg; break;
     case 'opt': if (m.fmGain != null) e.fmGain = m.fmGain; if (m.psgGain != null) e.psgGain = m.psgGain;
       if (m.filter != null) e.filter = m.filter; if (m.ladder != null) e.fm.ladder = m.ladder; break;
@@ -1164,6 +1222,36 @@ function buildDMP(ins) {
   return w.out();
 }
 
+// ---------------------------------------------------------------- .tfi / .y12 (FM patches in register order)
+const DT_REG2FILE = [3, 4, 5, 6, 3, 2, 1, 0];
+function parseTFI(u8, name) {
+  if (u8.length < 42) throw new Error('Arquivo .tfi curto demais');
+  const ops = [null, null, null, null];
+  for (let k = 0; k < 4; k++) {
+    const b = 2 + k * 10, ssg = u8[b + 9] & 15;
+    ops[FILE_OP[k]] = { am: 0, ar: u8[b + 4] & 31, dr: u8[b + 5] & 31, mul: u8[b] & 15, rr: u8[b + 7] & 15, sl: u8[b + 8] & 15, tl: u8[b + 2] & 127,
+      dt2: 0, rs: u8[b + 3] & 3, dt: Math.min(6, u8[b + 1] & 7), d2r: u8[b + 6] & 31, ssg: ssg & 8 ? ssg : 0 };
+  }
+  return { type: 'fm', name: (name || 'instrumento').replace(/\.tfi$/i, ''), alg: u8[0] & 7, fb: u8[1] & 7, fms: 0, ams: 0, ops };
+}
+function parseY12(u8, name) {
+  if (u8.length < 66) throw new Error('Arquivo .y12 curto demais');
+  const ops = [null, null, null, null];
+  for (let k = 0; k < 4; k++) {
+    const b = k * 16;
+    ops[FILE_OP[k]] = { am: u8[b + 3] >> 7, ar: u8[b + 2] & 31, dr: u8[b + 3] & 31, mul: u8[b] & 15, rr: u8[b + 5] & 15, sl: u8[b + 5] >> 4, tl: u8[b + 1] & 127,
+      dt2: 0, rs: u8[b + 2] >> 6, dt: DT_REG2FILE[(u8[b] >> 4) & 7], d2r: u8[b + 4] & 31, ssg: u8[b + 6] & 8 ? u8[b + 6] & 15 : 0 };
+  }
+  return { type: 'fm', name: (name || 'instrumento').replace(/\.y12$/i, ''), alg: u8[64] & 7, fb: u8[65] & 7, fms: 0, ams: 0, ops };
+}
+function parseInsFile(u8, fileName) {
+  const ext = (/\.(\w+)$/.exec(fileName || '') || [])[1];
+  const e = ext ? ext.toLowerCase() : '';
+  if (e === 'tfi') return parseTFI(u8, fileName);
+  if (e === 'y12') return parseY12(u8, fileName);
+  return parseDMP(u8, fileName);
+}
+
 // ---------------------------------------------------------------- VGM export
 class VGMSink {
   constructor(fmRate, sampleBase) { this.fmRate = fmRate; this.w = new Writer(); this.t = 0; this.v = 0; this.base = sampleBase; this.dacNext = -1; }
@@ -1275,7 +1363,7 @@ function wavRenderer(song, rate, opts) {
 
 return { NTSC, PAL, NOTE_OFF, NCH, CH_NAMES, CARRIERS, YM2612, SN76489, Sequencer, Engine, handle,
   newSong, demoSong, emptyRow, emptyPattern, getPat, fmIns, stdIns, defFMOp, presetInstruments, noteHz,
-  parseDMF, buildDMF, parseDMP, buildDMP, exportVGM, wavRenderer, songCopy };
+  parseDMF, buildDMF, parseDMP, buildDMP, parseTFI, parseY12, parseInsFile, exportVGM, wavRenderer, songCopy };
 })();
 if (typeof module !== 'undefined') module.exports = MDT;
 
@@ -1297,10 +1385,55 @@ function loadLocal() {
 }
 try { const o = JSON.parse(localStorage.getItem('mdt.opts') || 'null'); if (o) Object.assign(S.opts, o); } catch (e) {}
 let saveT = 0, sendT = 0;
-function changed(full) {
+// tag: edits with the same tag in quick succession (a slider drag, typing a name) become one undo step.
+function changed(tag) {
+  histPush(tag);
   clearTimeout(sendT); sendT = setTimeout(() => post({ t: 'song', song: S.song }), 60);
   clearTimeout(saveT); saveT = setTimeout(saveLocal, 800);
 }
+
+// ------------------------------------------------------------ undo / redo
+// Snapshots of the whole song (samples kept by reference, they are never edited here).
+const HIST = { undo: [], redo: [], last: null, tag: null, t: 0, size: 0 };
+const HIST_MAX_CHARS = 30e6;
+function snap() {
+  const smp = S.song.samples; S.song.samples = undefined;
+  const j = JSON.stringify(S.song); S.song.samples = smp;
+  return { j, smp };
+}
+function histReset() { HIST.undo = []; HIST.redo = []; HIST.size = 0; HIST.last = snap(); HIST.tag = null; updUndo(); }
+function histPush(tag) {
+  const now = Date.now(), cur = snap();
+  const merge = tag && tag === HIST.tag && now - HIST.t < 1500;
+  if (!merge && HIST.last && HIST.last.j !== cur.j) {
+    HIST.undo.push(HIST.last); HIST.size += HIST.last.j.length;
+    while (HIST.undo.length > 5 && HIST.size > HIST_MAX_CHARS) HIST.size -= HIST.undo.shift().j.length;
+    HIST.redo = [];
+  } else if (merge) HIST.redo = [];
+  HIST.last = cur; HIST.tag = tag || null; HIST.t = now; updUndo();
+}
+function histRestore(s) {
+  const song = JSON.parse(s.j); song.samples = s.smp || [];
+  S.song = song; HIST.last = s; HIST.tag = null;
+  S.o = Math.min(S.o, song.orders.length - 1); S.row = Math.min(S.row, song.rows - 1);
+  S.f = Math.min(S.f, nFields(S.ch) - 1); S.ordSel.m = Math.min(S.ordSel.m, song.orders.length - 1);
+  if (S.insSel >= song.ins.length) S.insSel = Math.max(0, song.ins.length - 1);
+  if (S.ins >= song.ins.length) S.ins = Math.max(0, song.ins.length - 1);
+  SEL.on = false;
+  post({ t: 'song', song }); clearTimeout(saveT); saveT = setTimeout(saveLocal, 800);
+  refreshView(); updUndo();
+}
+function undo() {
+  if (!HIST.undo.length) { toast('Nada para desfazer'); return; }
+  const s = HIST.undo.pop(); HIST.size -= s.j.length;
+  HIST.redo.push(snap()); histRestore(s);
+}
+function redo() {
+  if (!HIST.redo.length) { toast('Nada para refazer'); return; }
+  const cur = snap(); HIST.undo.push(cur); HIST.size += cur.j.length;
+  histRestore(HIST.redo.pop());
+}
+function updUndo() { $('#bUndo').disabled = !HIST.undo.length; $('#bRedo').disabled = !HIST.redo.length; }
 
 // ------------------------------------------------------------ audio backend
 let ctx = null, post = () => {}, eng = null;
@@ -1385,6 +1518,8 @@ function rowHTML(r) {
   if (S.playing && S.play.o === S.o && S.play.r === r) cls += ' play';
   if (r === S.row) cls += ' cur';
   let h = `<div class="${cls}" data-r="${r}"><span class="rn">${hex2(r)}</span>`;
+  let sb = null, colOff = null;
+  if (SEL.on) { sb = selBox(); if (r >= sb.ra && r <= sb.rb) colOff = colOffsets(); }
   for (let c = 0; c < 10; c++) {
     const p = MDT.getPat(s, c, curPatNum(c), false);
     const row = p ? p[r] : MDT.emptyRow();
@@ -1393,7 +1528,8 @@ function rowHTML(r) {
     for (let k = 0; k < nf; k++) {
       const sel = r === S.row && c === S.ch && k === S.f ? ' sel' : '';
       const e = isEmptyField(row, k) ? ' e' : '';
-      h += `<span class="f ${fieldClass(k)}${e}${sel}" data-k="${k}">${fieldText(row, k)}</span>`;
+      const bl = colOff && colOff[c] + k >= sb.ga && colOff[c] + k <= sb.gb ? ' bsel' : '';
+      h += `<span class="f ${fieldClass(k)}${e}${sel}${bl}" data-k="${k}">${fieldText(row, k)}</span>`;
     }
     h += '</span>';
   }
@@ -1412,6 +1548,7 @@ function renderGrid() {
   for (let r = 0; r < s.rows; r++) h += rowHTML(r);
   grid.innerHTML = h;
   $('#ordNum').textContent = hex2(S.o); $('#ordTot').textContent = hex2(s.orders.length - 1);
+  updSelBar();
 }
 function renderRow(r) {
   const el = grid.querySelector(`.gr[data-r="${r}"]`); if (!el) return;
@@ -1438,12 +1575,172 @@ function setCursor(row, ch, f, keepHex) {
   if (oldC !== S.ch) renderHead();
   scrollToRow(S.row); scrollToCh(S.ch); updateDock();
 }
+// ------------------------------------------------------------ block selection
+// A selection is a rectangle of rows r0..r1 and "global columns" g0..g1, where every field of every
+// channel (note, ins, vol, fx...) has its own global column. r0/g0 is the anchor.
+const SEL = { on: false, r0: 0, r1: 0, g0: 0, g1: 0, mode: 'cells', ac: 0 };
+function colOffsets() { const o = []; let g = 0; for (let c = 0; c < 10; c++) { o.push(g); g += nFields(c); } return o; }
+function gOf(c, k) { return colOffsets()[c] + k; }
+function cOf(g) { for (let c = 0; c < 10; c++) { const n = nFields(c); if (g < n) return [c, g]; g -= n; } return [9, nFields(9) - 1]; }
+function gTotal() { return gOf(9, nFields(9)); }
+function selBox() {
+  const last = S.song.rows - 1, gl = gTotal() - 1;
+  return { ra: Math.max(0, Math.min(SEL.r0, SEL.r1)), rb: Math.min(last, Math.max(SEL.r0, SEL.r1)), ga: Math.max(0, Math.min(SEL.g0, SEL.g1)), gb: Math.min(gl, Math.max(SEL.g0, SEL.g1)) };
+}
+// Only toggles classes: replacing the row elements would detach the node under the finger and the
+// browser would stop delivering touchmove to the grid in the middle of a drag.
+function repaintRows(a, b) {
+  const sb = SEL.on ? selBox() : null, off = colOffsets();
+  for (let r = a; r <= b; r++) {
+    const row = grid.querySelector(`.gr[data-r="${r}"]`); if (!row) continue;
+    const inR = sb && r >= sb.ra && r <= sb.rb;
+    for (const cc of row.querySelectorAll('.cc[data-c]')) {
+      const o = off[+cc.dataset.c];
+      for (const f of cc.children) { const g = o + +f.dataset.k; f.classList.toggle('bsel', !!(inR && g >= sb.ga && g <= sb.gb)); }
+    }
+  }
+}
+function setSel(r0, g0, r1, g1, mode) {
+  const old = SEL.on ? selBox() : null;
+  Object.assign(SEL, { on: true, r0, g0, r1, g1 }); if (mode) SEL.mode = mode;
+  const nb = selBox();
+  repaintRows(Math.min(nb.ra, old ? old.ra : nb.ra), Math.max(nb.rb, old ? old.rb : nb.rb));
+  updSelBar();
+}
+function clearSel() {
+  if (!SEL.on) return;
+  const old = selBox(); SEL.on = false; repaintRows(old.ra, old.rb); updSelBar();
+}
+function updSelBar() {
+  const bar = $('#selbar'); if (!bar) return;
+  bar.hidden = !SEL.on;
+  const lb = (op, a, b) => { const el = document.querySelector(`.patbar [data-op="${op}"]`); if (el) el.textContent = SEL.on ? a : b; };
+  lb('copy', 'Copiar seleção', 'Copiar canal'); lb('cut', 'Recortar seleção', 'Recortar canal'); lb('clear', 'Apagar seleção', 'Apagar canal');
+  if (!SEL.on) return;
+  const b = selBox(), c1 = cOf(b.ga)[0], c2 = cOf(b.gb)[0], nr = b.rb - b.ra + 1;
+  $('#selInfo').textContent = `${nr} ${nr > 1 ? 'linhas' : 'linha'} · ${c1 === c2 ? MDT.CH_NAMES[c1] : MDT.CH_NAMES[c1] + '–' + MDT.CH_NAMES[c2]}`;
+}
+// the block the patbar buttons act on: the selection, or the whole cursor channel
+function blockBox() { return SEL.on ? selBox() : { ra: 0, rb: S.song.rows - 1, ga: gOf(S.ch, 0), gb: gOf(S.ch, nFields(S.ch) - 1) }; }
+function eachCell(b, fn) {
+  for (let g = b.ga; g <= b.gb; g++) { const [c, k] = cOf(g), p = pat(c); for (let r = b.ra; r <= b.rb; r++) fn(p[r], k, r - b.ra, g - b.ga, c); }
+}
+function getField(row, k) { if (k === 0) return row.n; if (k === 1) return row.i; if (k === 2) return row.v; const fx = row.fx[(k - 3) >> 1]; return k % 2 ? fx[0] : fx[1]; }
+function setField(row, k, v) {
+  if (k === 0) row.n = v; else if (k === 1) row.i = v; else if (k === 2) row.v = v;
+  else { const fx = row.fx[(k - 3) >> 1]; if (k % 2) { fx[0] = v; if (v < 0) fx[1] = -1; } else fx[1] = v; }
+}
+function clearField(row, k) {
+  if (k === 0) { row.n = null; row.i = -1; row.v = -1; } else if (k === 1) row.i = -1; else if (k === 2) row.v = -1;
+  else { const fx = row.fx[(k - 3) >> 1]; fx[0] = -1; fx[1] = -1; }
+}
+function blockCopy(b) {
+  const c0 = cOf(b.ga)[0], cols = [], data = [];
+  for (let g = b.ga; g <= b.gb; g++) { const [c, k] = cOf(g); cols.push({ dc: c - c0, k }); }
+  for (let r = b.ra; r <= b.rb; r++) data.push(new Array(cols.length));
+  eachCell(b, (row, k, i, j) => { data[i][j] = getField(row, k); });
+  S.clip = { cols, data };
+}
+// paste with the top-left corner at the cursor row and channel; each field keeps its kind (note, ins, vol, fx)
+function blockPaste() {
+  const cl = S.clip; if (!cl || !cl.cols) { toast('Nada copiado'); return false; }
+  cl.cols.forEach((col, j) => {
+    const c = S.ch + col.dc; if (c > 9 || col.k >= nFields(c)) return;
+    const p = pat(c);
+    cl.data.forEach((line, i) => { const r = S.row + i; if (r < S.song.rows) setField(p[r], col.k, line[j]); });
+  });
+  return true;
+}
+
+// ------------------------------------------------------------ taps, long press and drag on the grid
+// Tap a field: cursor. Tap a row number: select the row (tap another to extend). Tap a channel name:
+// select the channel (tap another to extend). Long press (touch) or drag (mouse): rectangle selection.
+// Long press on a channel name: mute.
+function hitAt(x, y) {
+  const el = document.elementFromPoint(x, y); if (!el || !grid.contains(el)) return null;
+  const hc = el.closest('[data-hc]'); if (hc) return { t: 'h', c: +hc.dataset.hc };
+  const gr = el.closest('.gr[data-r]'); if (!gr) return null;
+  const r = +gr.dataset.r;
+  if (el.closest('.rn')) return { t: 'r', r };
+  const f = el.closest('.f'); if (!f) return null;
+  return { t: 'f', r, c: +f.closest('.cc').dataset.c, k: +f.dataset.k };
+}
+let press = null, skipClick = false;
+function pressStart(x, y, touch) {
+  const hit = hitAt(x, y); if (!hit) return;
+  press = { x, y, hit, active: false, touch };
+  if (touch) press.timer = setTimeout(pressLong, 420);
+}
+function beginDrag(p) {
+  const h = p.hit;
+  p.active = true; skipClick = true;
+  if (h.t === 'f') { const g = gOf(h.c, h.k); setSel(h.r, g, h.r, g, 'cells'); return true; }
+  if (h.t === 'r') { setSel(h.r, 0, h.r, gTotal() - 1, 'rows'); return true; }
+  return false;
+}
+function pressLong() {
+  const p = press; if (!p) return;
+  if (navigator.vibrate) try { navigator.vibrate(12); } catch (e) {}
+  if (p.hit.t === 'h') {
+    const c = p.hit.c; S.mute[c] = !S.mute[c]; sendMute(); renderGrid();
+    toast(MDT.CH_NAMES[c] + (S.mute[c] ? ' mudo' : ' com som')); skipClick = true; press = null; return;
+  }
+  beginDrag(p);
+}
+function pressMove(x, y) {
+  const p = press; if (!p) return false;
+  if (!p.active) {
+    if (Math.abs(x - p.x) + Math.abs(y - p.y) < 10) return false;
+    if (p.touch) { clearTimeout(p.timer); press = null; return false; }   // finger moved first: it is a scroll
+    if (!beginDrag(p)) { press = null; return false; }
+  }
+  const b = grid.getBoundingClientRect();
+  if (y < b.top + 44) grid.scrollTop -= 12; else if (y > b.bottom - 30) grid.scrollTop += 12;
+  if (x < b.left + 60) grid.scrollLeft -= 12; else if (x > b.right - 30) grid.scrollLeft += 12;
+  const h = hitAt(Math.max(b.left + 40, Math.min(b.right - 2, x)), Math.max(b.top + 24, Math.min(b.bottom - 2, y)));
+  if (h && h.r != null) {
+    const g1 = SEL.mode === 'cells' && h.t === 'f' ? gOf(h.c, h.k) : SEL.g1;
+    if (h.r !== SEL.r1 || g1 !== SEL.g1) setSel(SEL.r0, SEL.g0, h.r, g1);
+  }
+  return true;
+}
+function pressEnd() { if (press) { clearTimeout(press.timer); press = null; } }
+grid.addEventListener('touchstart', e => { skipClick = false; if (e.touches.length === 1) pressStart(e.touches[0].clientX, e.touches[0].clientY, true); else pressEnd(); }, { passive: false });
+grid.addEventListener('touchmove', e => { const t = e.touches[0]; if (pressMove(t.clientX, t.clientY) && e.cancelable) e.preventDefault(); }, { passive: false });
+grid.addEventListener('touchend', pressEnd); grid.addEventListener('touchcancel', pressEnd);
+grid.addEventListener('contextmenu', e => { if (press || SEL.on) e.preventDefault(); });
+grid.addEventListener('mousedown', e => {
+  if (e.button !== 0 || (e.sourceCapabilities && e.sourceCapabilities.firesTouchEvents)) return;
+  if (e.shiftKey && SEL.on === false) { const h = hitAt(e.clientX, e.clientY); if (h && h.t === 'f') { e.preventDefault(); setSel(S.row, gOf(S.ch, S.f), h.r, gOf(h.c, h.k), 'cells'); skipClick = true; } return; }
+  if (e.shiftKey && SEL.on) { const h = hitAt(e.clientX, e.clientY); if (h && h.t === 'f') { e.preventDefault(); setSel(SEL.r0, SEL.g0, h.r, gOf(h.c, h.k)); skipClick = true; } return; }
+  pressStart(e.clientX, e.clientY, false);
+});
+document.addEventListener('mousemove', e => { if (press && !press.touch && (e.buttons & 1)) pressMove(e.clientX, e.clientY); });
+document.addEventListener('mouseup', () => { if (press && !press.touch) pressEnd(); });
 grid.addEventListener('click', e => {
-  const hc = e.target.closest('[data-hc]');
-  if (hc) { const c = +hc.dataset.hc; if (c === S.ch) { S.mute[c] = !S.mute[c]; sendMute(); renderGrid(); } else setCursor(S.row, c, S.f > 2 ? 0 : S.f); return; }
-  const f = e.target.closest('.f'); if (!f) return;
-  const r = +f.closest('.gr').dataset.r, c = +f.closest('.cc').dataset.c, k = +f.dataset.k;
-  setCursor(r, c, k);
+  if (skipClick) { skipClick = false; return; }
+  const h = hitAt(e.clientX, e.clientY); if (!h) return;
+  const last = S.song.rows - 1, gl = gTotal() - 1;
+  if (h.t === 'h') {
+    const c = h.c;
+    if (SEL.on && SEL.mode === 'cols') {
+      if (SEL.ac === c && cOf(selBox().ga)[0] === c && cOf(selBox().gb)[0] === c) { clearSel(); return; }
+      const a = Math.min(SEL.ac, c), b = Math.max(SEL.ac, c);
+      setSel(0, gOf(a, 0), last, gOf(b, nFields(b) - 1));
+    } else { SEL.ac = c; setSel(0, gOf(c, 0), last, gOf(c, nFields(c) - 1), 'cols'); }
+    if (c !== S.ch) setCursor(S.row, c, 0);
+    return;
+  }
+  if (h.t === 'r') {
+    if (SEL.on && SEL.mode === 'rows') {
+      const b = selBox();
+      if (b.ra === h.r && b.rb === h.r) { clearSel(); return; }
+      setSel(SEL.r0, 0, h.r, gl);
+    } else setSel(h.r, 0, h.r, gl, 'rows');
+    return;
+  }
+  if (SEL.on) clearSel();
+  setCursor(h.r, h.c, h.k);
 });
 function moveField(d) {
   let c = S.ch, f = S.f + d;
@@ -1463,6 +1760,7 @@ function putNote(n) {
   return true;
 }
 function delField() {
+  if (SEL.on && S.view === 'vPat') { patOp('clear'); return; }
   if (!S.rec) { toast('Ligue a gravação (●) para editar'); return; }
   const k = S.f;
   editRow(r => {
@@ -1485,28 +1783,40 @@ function hexInput(d) {
   if (S.hexN >= 2 || (k === 2 && c >= 6)) advance();
 }
 function patOp(op) {
-  const c = S.ch, p = pat(c), s = S.song;
-  if (op === 'copy') { S.clip = JSON.parse(JSON.stringify(p)); toast('Canal copiado'); return; }
-  if (!S.rec && op !== 'fx+' && op !== 'fx-') { toast('Ligue a gravação (●) para editar'); return; }
-  if (op === 'paste') { if (!S.clip) return toast('Nada copiado'); for (let i = 0; i < s.rows; i++) p[i] = JSON.parse(JSON.stringify(S.clip[i] || MDT.emptyRow())); }
-  else if (op === 'clear') { for (let i = 0; i < s.rows; i++) p[i] = MDT.emptyRow(); }
-  else if (op.startsWith('t')) { const d = +op.slice(1); for (const r of p) if (r.n !== null && r.n >= 0) r.n = Math.max(0, Math.min(119, r.n + d)); }
-  else if (op === 'ins') { p.splice(S.row, 0, MDT.emptyRow()); p.length = s.rows; }
-  else if (op === 'del') { p.splice(S.row, 1); p.push(MDT.emptyRow()); }
-  else if (op === 'fx+') { s.fxCols[c] = Math.min(4, (s.fxCols[c] || 1) + 1); }
-  else if (op === 'fx-') { s.fxCols[c] = Math.max(1, (s.fxCols[c] || 1) - 1); S.f = Math.min(S.f, nFields(c) - 1); }
+  const s = S.song;
+  if (op === 'none') { clearSel(); return; }
+  if (op === 'all') { setSel(0, 0, s.rows - 1, gTotal() - 1, 'cells'); return; }
+  if (op === 'fx+' || op === 'fx-') {
+    const c = S.ch; s.fxCols[c] = Math.max(1, Math.min(4, (s.fxCols[c] || 1) + (op === 'fx+' ? 1 : -1)));
+    SEL.on = false; S.f = Math.min(S.f, nFields(c) - 1); renderGrid(); changed(); return;
+  }
+  const b = blockBox();
+  if (op === 'copy') { blockCopy(b); toast(SEL.on ? 'Seleção copiada' : 'Canal copiado'); return; }
+  if (op === 'cut') { blockCopy(b); eachCell(b, clearField); toast('Recortado'); }
+  else if (op === 'paste') { if (!blockPaste()) return; }
+  else if (op === 'clear') eachCell(b, clearField);
+  else if (op.startsWith('t')) { const d = +op.slice(1); eachCell(b, (row, k) => { if (k === 0 && row.n !== null && row.n >= 0) row.n = Math.max(0, Math.min(119, row.n + d)); }); }
+  else if (op === 'ins' || op === 'del') {
+    const c1 = cOf(b.ga)[0], c2 = cOf(b.gb)[0], at = SEL.on ? b.ra : S.row, n = SEL.on ? b.rb - b.ra + 1 : 1;
+    for (let c = c1; c <= c2; c++) {
+      const p = pat(c);
+      if (op === 'ins') { for (let i = 0; i < n; i++) p.splice(at, 0, MDT.emptyRow()); p.length = s.rows; }
+      else { p.splice(at, n); while (p.length < s.rows) p.push(MDT.emptyRow()); }
+    }
+  }
   renderGrid(); changed();
 }
-document.querySelector('.patbar').addEventListener('click', e => { const b = e.target.closest('[data-op]'); if (b) patOp(b.dataset.op); });
-$('#oPrev').onclick = () => { if (S.o > 0) { S.o--; renderGrid(); } };
-$('#oNext').onclick = () => { if (S.o < S.song.orders.length - 1) { S.o++; renderGrid(); } };
+document.querySelectorAll('.patbar, .selbar').forEach(bar => bar.addEventListener('click', e => { const b = e.target.closest('[data-op]'); if (b) patOp(b.dataset.op); }));
+$('#oPrev').onclick = () => { if (S.o > 0) { S.o--; SEL.on = false; renderGrid(); } };
+$('#oNext').onclick = () => { if (S.o < S.song.orders.length - 1) { S.o++; SEL.on = false; renderGrid(); } };
 
 // ------------------------------------------------------------ live notes / voice allocation
 const voices = new Map();   // key -> channel
 let rr = 0;
-function liveChannel() {
-  if (!S.poly || S.rec) return S.ch;
-  const group = S.ch < 6 ? [0, 1, 2, 3, 4, 5] : [6, 7, 8];
+function liveChannel(group) {
+  if (group) { if (!S.poly) return group[0]; }
+  else if (!S.poly || S.rec) return S.ch;
+  else group = S.ch < 6 ? [0, 1, 2, 3, 4, 5] : [6, 7, 8];
   const used = new Set(voices.values());
   for (let i = 0; i < group.length; i++) { const c = group[(rr + i) % group.length]; if (!used.has(c)) { rr = (rr + i + 1) % group.length; return c; } }
   rr = (rr + 1) % group.length; return group[rr];
@@ -1517,13 +1827,14 @@ function insForCh(c) {
 }
 function noteDown(key, n, vel) {
   if (!ctx) ensureAudio();
-  const recHere = S.view === 'vPat' && S.f === 0 && S.rec;
-  const c = recHere ? Math.min(9, S.ch + S.midi.chord) : liveChannel();
+  const lib = S.view === 'vLib' && S.lib.prev;
+  const recHere = !lib && S.view === 'vPat' && S.f === 0 && S.rec;
+  const c = lib ? liveChannel(libGroup()) : recHere ? Math.min(9, S.ch + S.midi.chord) : liveChannel();
   for (const [k, v] of voices) if (v === c) voices.delete(k);
   voices.set(key, c);
   let v = -1;
   if (vel != null && S.midi.vel) v = c < 6 ? Math.round(vel) : Math.round(vel / 127 * 15);
-  post({ t: 'on', c, n, i: insForCh(c), v });
+  post({ t: 'on', c, n, i: lib ? -2 : insForCh(c), v });
   if (recHere) {
     const r = pat(c)[S.row]; r.n = n; r.i = S.ins; if (v >= 0) r.v = v;
     renderRow(S.row); changed();
@@ -1584,6 +1895,7 @@ function updateDock() {
   const ins = S.song.ins[S.ins]; $('#insN').textContent = ins ? ins.name + (ins.type === 'fm' ? ' (FM)' : ' (PSG)') : '— vazio —';
   $('#kPoly').classList.toggle('on', S.poly);
   $('#dock').classList.toggle('insmode', S.view === 'vIns');
+  $('#dock').classList.toggle('libmode', S.view === 'vLib');
   labelPiano();
 }
 document.querySelector('.dock').addEventListener('click', e => {
@@ -1619,23 +1931,31 @@ function stop() {
 $('#bPlay').onclick = () => play(false);
 $('#bLoop').onclick = () => play(true);
 $('#bStop').onclick = stop;
+$('#bUndo').onclick = undo;
+$('#bRedo').onclick = redo;
 $('#bRec').onclick = () => { S.rec = !S.rec; $('#bRec').classList.toggle('on', S.rec); updateDock(); };
 $('#bStart').onclick = ensureAudio;
 
 // ------------------------------------------------------------ tabs
-$('#tabs').addEventListener('click', e => {
-  const b = e.target.closest('[data-v]'); if (!b) return;
-  S.view = b.dataset.v;
-  document.querySelectorAll('#tabs button').forEach(x => x.classList.toggle('on', x === b));
-  document.querySelectorAll('.view').forEach(v => { v.hidden = v.id !== S.view; });
-  $('#dock').hidden = !(S.view === 'vPat' || S.view === 'vIns');
-  if (S.view === 'vPat') renderGrid();
-  if (S.view === 'vOrd') renderOrders();
-  if (S.view === 'vIns') renderIns();
-  if (S.view === 'vSong') renderSong();
-  if (S.view === 'vFile') renderFile();
+function showView(v) {
+  S.view = v;
+  const tab = v === 'vLib' ? 'vIns' : v;
+  document.querySelectorAll('#tabs button').forEach(x => x.classList.toggle('on', x.dataset.v === tab));
+  document.querySelectorAll('.view').forEach(x => { x.hidden = x.id !== v; });
+  $('#dock').hidden = !(v === 'vPat' || v === 'vIns' || v === 'vLib');
+  refreshView();
+}
+function refreshView() {
+  const v = S.view;
+  if (v === 'vPat') renderGrid();
+  if (v === 'vOrd') renderOrders();
+  if (v === 'vIns') renderIns();
+  if (v === 'vSong') renderSong();
+  if (v === 'vFile') renderFile();
+  if (v === 'vLib') renderLib();
   updateDock();
-});
+}
+$('#tabs').addEventListener('click', e => { const b = e.target.closest('[data-v]'); if (b) showView(b.dataset.v); });
 
 // ------------------------------------------------------------ orders view
 function renderOrders() {
@@ -1694,12 +2014,14 @@ function renderIns() {
   const s = S.song, v = $('#vIns');
   if (S.insSel >= s.ins.length) S.insSel = Math.max(0, s.ins.length - 1);
   const ins = s.ins[S.insSel];
-  let h = `<div class="wrap"><h2>Instrumentos</h2><div class="inslist" id="insList">`;
+  let h = `<div class="wrap"><h2>Instrumentos</h2>
+  <div class="row"><button class="bigbtn" data-ia="lib">📚 Biblioteca de instrumentos</button><span class="small">Ouça e escolha vários de uma vez.</span></div>
+  <div class="inslist" id="insList">`;
   s.ins.forEach((x, i) => { h += `<button data-is="${i}" class="${i === S.insSel ? 'on' : ''}"><span class="num">${hex2(i)}</span><span>${esc(x.name)}</span><span class="ty">${x.type === 'fm' ? 'FM' : 'PSG'}</span></button>`; });
   if (!s.ins.length) h += '<p class="small">Nenhum instrumento ainda. Crie um FM ou PSG abaixo.</p>';
   h += `</div><div class="row chips">
     <button data-ia="newfm">+ FM</button><button data-ia="newstd">+ PSG</button><button data-ia="dup">Duplicar</button><button data-ia="rm">Apagar</button>
-    <button data-ia="imp">Importar .dmp</button><button data-ia="exp">Exportar .dmp</button><button data-ia="up">↑</button><button data-ia="down">↓</button>
+    <button data-ia="imp">Importar .dmp/.tfi/.y12</button><button data-ia="exp">Exportar .dmp</button><button data-ia="up">↑</button><button data-ia="down">↓</button>
   </div>`;
   if (ins) {
     h += `<div class="field"><label for="iName">Nome</label><input id="iName" value="${esc(ins.name)}"></div>`;
@@ -1724,6 +2046,8 @@ function renderIns() {
   }
   h += '</div>';
   v.innerHTML = h;
+  const on = v.querySelector('#insList .on'), lst = $('#insList');
+  if (on && lst) lst.scrollTop = Math.max(0, on.offsetTop - lst.offsetTop - lst.clientHeight / 2);
   if (ins && ins.type === 'fm') for (let k = 0; k < 4; k++) drawEnv(k);
 }
 function esc(t) { return String(t).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c])); }
@@ -1743,13 +2067,14 @@ function drawEnv(k) {
 }
 $('#vIns').addEventListener('input', e => {
   const t = e.target, ins = S.song.ins[S.insSel]; if (!ins) return;
-  if (t.id === 'iName') { ins.name = t.value; const b = document.querySelector(`[data-is="${S.insSel}"] span:nth-child(2)`); if (b) b.textContent = t.value; updateDock(); changed(); return; }
-  if (t.id.startsWith('i-')) { ins[t.id.slice(2)] = +t.value; $('#' + t.id + '-o').textContent = t.value; changed(); return; }
+  const tag = 'ins' + S.insSel + ':' + t.id;
+  if (t.id === 'iName') { ins.name = t.value; const b = document.querySelector(`[data-is="${S.insSel}"] span:nth-child(2)`); if (b) b.textContent = t.value; updateDock(); changed(tag); return; }
+  if (t.id.startsWith('i-')) { ins[t.id.slice(2)] = +t.value; $('#' + t.id + '-o').textContent = t.value; changed(tag); return; }
   const m = /^o(\d)-(\w+)$/.exec(t.id);
-  if (m) { const k = +m[1], key = m[2]; ins.ops[k][key] = +t.value; $('#' + t.id + '-o').textContent = key === 'dt' ? +t.value - 3 : key === 'ssg' ? ssgTxt(+t.value) : t.value; drawEnv(k); changed(); return; }
-  if (t.id === 'm-vol') { ins.vol = parseMacro(t.value); changed(); }
-  if (t.id === 'm-arp') { const p = parseMacro(t.value); ins.arp.v = p.v; ins.arp.loop = p.loop; changed(); }
-  if (t.id === 'm-duty') { ins.duty = parseMacro(t.value); changed(); }
+  if (m) { const k = +m[1], key = m[2]; ins.ops[k][key] = +t.value; $('#' + t.id + '-o').textContent = key === 'dt' ? +t.value - 3 : key === 'ssg' ? ssgTxt(+t.value) : t.value; drawEnv(k); changed(tag); return; }
+  if (t.id === 'm-vol') { ins.vol = parseMacro(t.value); changed(tag); }
+  if (t.id === 'm-arp') { const p = parseMacro(t.value); ins.arp.v = p.v; ins.arp.loop = p.loop; changed(tag); }
+  if (t.id === 'm-duty') { ins.duty = parseMacro(t.value); changed(tag); }
   if (t.id === 'm-fix') { ins.arp.fixed = t.checked; changed(); }
 });
 $('#vIns').addEventListener('click', async e => {
@@ -1758,6 +2083,7 @@ $('#vIns').addEventListener('click', async e => {
   const al = e.target.closest('[data-alg]'); if (al) { s.ins[S.insSel].alg = +al.dataset.alg; renderIns(); changed(); return; }
   const b = e.target.closest('[data-ia]'); if (!b) return;
   const a = b.dataset.ia, cur = s.ins[S.insSel];
+  if (a === 'lib') { showView('vLib'); return; }
   if ((a === 'newfm' || a === 'newstd' || a === 'dup' || a === 'imp') && s.ins.length >= 128) return toast('Máximo de 128 instrumentos');
   if (a === 'newfm') { s.ins.push(MDT.fmIns('FM ' + hex2(s.ins.length), 4, 4, [{ tl: 30, dr: 6, sl: 3, d2r: 2, rr: 8 }, { tl: 0, dr: 4, sl: 2, d2r: 2, rr: 8 }, { tl: 30, dr: 6, sl: 3, d2r: 2, rr: 8 }, { tl: 0, dr: 4, sl: 2, d2r: 2, rr: 8 }])); S.insSel = s.ins.length - 1; }
   else if (a === 'newstd') { s.ins.push(MDT.stdIns('PSG ' + hex2(s.ins.length), [15, 14, 12, 10, 9, 8])); S.insSel = s.ins.length - 1; }
@@ -1765,9 +2091,169 @@ $('#vIns').addEventListener('click', async e => {
   else if (a === 'rm' && cur) { s.ins.splice(S.insSel, 1); S.insSel = Math.max(0, S.insSel - 1); toast('Instrumento apagado. Números de instrumento nos padrões não foram renumerados.'); }
   else if (a === 'up' && S.insSel > 0) { [s.ins[S.insSel - 1], s.ins[S.insSel]] = [s.ins[S.insSel], s.ins[S.insSel - 1]]; S.insSel--; }
   else if (a === 'down' && S.insSel < s.ins.length - 1) { [s.ins[S.insSel + 1], s.ins[S.insSel]] = [s.ins[S.insSel], s.ins[S.insSel + 1]]; S.insSel++; }
-  else if (a === 'imp') { const f = await pickFile('.dmp'); if (!f) return; try { const ins = MDT.parseDMP(new Uint8Array(await f.arrayBuffer()), f.name); s.ins.push(ins); S.insSel = s.ins.length - 1; toast('Importado: ' + ins.name); } catch (err) { toast(err.message); } }
+  else if (a === 'imp') {
+    const files = await pickFiles(); if (!files.length) return;
+    let n = 0;
+    for (const f of files) {
+      if (s.ins.length >= 128) { toast('Máximo de 128 instrumentos'); break; }
+      try { s.ins.push(MDT.parseInsFile(new Uint8Array(await f.arrayBuffer()), f.name)); n++; } catch (err) { toast(f.name + ': ' + err.message); }
+    }
+    if (!n) return;
+    S.insSel = s.ins.length - 1; toast(n > 1 ? n + ' instrumentos importados' : 'Importado: ' + s.ins[S.insSel].name);
+  }
   else if (a === 'exp' && cur) { await saveFile((cur.name || 'instrumento').replace(/[^\w\- ]+/g, '_') + '.dmp', MDT.buildDMP(cur)); return; }
   S.ins = S.insSel; renderIns(); updateDock(); changed();
+});
+
+// ------------------------------------------------------------ instrument library
+// Two columns: on the left the library (test any instrument by tapping it, play it on the piano),
+// on the right the ones picked for this song. "Enviar" copies the picked ones into the song.
+S.lib = { base: null, jogos: [], cache: {}, grupo: 'todos', jogo: '', busca: '', lista: [], sel: [], prev: null, prevKey: '', prevNoise: false, abertos: [], nAbertos: 0, offT: 0, offC: null };
+const norm = t => String(t).normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase();
+async function libLoad() {
+  if (S.lib.base) return;
+  try {
+    const [b, j] = await Promise.all([
+      fetch('biblioteca/basicos.json').then(r => { if (!r.ok) throw new Error(r.status); return r.json(); }),
+      fetch('biblioteca/jogos/index.json').then(r => r.json()).catch(() => [])]);
+    b.grupos.forEach((g, gi) => g.itens.forEach((it, ii) => { it.k = 'b' + gi + ':' + ii; }));
+    S.lib.base = b; S.lib.jogos = j.sort((x, y) => x[1].localeCompare(y[1]));
+  } catch (e) { toast('Não consegui carregar a biblioteca. Abra uma vez com internet.'); throw e; }
+}
+async function libJogo(id) {
+  if (S.lib.cache[id]) return S.lib.cache[id];
+  const arr = await fetch('biblioteca/jogos/' + id + '.json').then(r => { if (!r.ok) throw new Error(r.status); return r.json(); });
+  const itens = arr.map(([nm, b64], i) => ({ ins: MDT.parseTFI(Uint8Array.from(atob(b64), ch => ch.charCodeAt(0)), nm), nota: 48, k: 'j' + id + ':' + i }));
+  S.lib.cache[id] = itens; return itens;
+}
+function libGroup() { const p = S.lib.prev; return p.type === 'fm' ? [0, 1, 2, 3, 4, 5] : S.lib.prevNoise ? [9] : [6, 7, 8]; }
+function libTestText() { const p = S.lib.prev; return p ? 'Testando: <b>' + esc(p.name) + '</b> · toque o piano' : 'Toque num nome para ouvir'; }
+async function renderLib() {
+  const L = S.lib, v = $('#vLib');
+  if (!L.base) {
+    v.innerHTML = '<div class="libtop"><button data-lb="voltar">← Instr.</button><h2>Biblioteca</h2></div><p class="small" style="padding:16px">Carregando instrumentos…</p>';
+    try { await libLoad(); } catch (e) { v.querySelector('p').textContent = 'Não consegui carregar a biblioteca. Abra o app uma vez com internet.'; return; }
+    if (S.view !== 'vLib') return;
+  }
+  const gs = L.base.grupos;
+  let opts = `<option value="todos">Todos (${gs.reduce((n, g) => n + g.itens.length, 0)})</option>` + gs.map((g, i) => `<option value="g${i}">${esc(g.nome)} (${g.itens.length})</option>`).join('');
+  if (L.abertos.length) opts += `<option value="abertos">Arquivos abertos (${L.abertos.length})</option>`;
+  if (L.jogos.length) opts += `<option value="jogos">Sons de jogos (${L.jogos.length} jogos)</option>`;
+  v.innerHTML = `<div class="libtop"><button data-lb="voltar">← Instr.</button><h2>Biblioteca</h2><span class="testando" id="libTest">${libTestText()}</span></div>
+  <div class="libcols">
+    <section class="libcol" aria-label="Biblioteca">
+      <select id="libGrupo" aria-label="Grupo">${opts}</select>
+      <select id="libJogo" aria-label="Jogo"${L.grupo === 'jogos' ? '' : ' hidden'}><option value="">Escolha o jogo…</option>${L.jogos.map(j => `<option value="${j[0]}">${esc(j[1])} (${j[2]})</option>`).join('')}</select>
+      <input id="libBusca" type="search" placeholder="Buscar: baixo, flauta…" value="${esc(L.busca)}" aria-label="Buscar">
+      <div class="liblist" id="libLista"></div>
+      <div class="libmore"><button data-lb="todos">+ Todos da lista</button><button data-lb="abrir">Abrir arquivos…</button></div>
+    </section>
+    <section class="libcol" aria-label="Selecionados">
+      <h3 id="libSelT"></h3>
+      <div class="liblist" id="libSel"></div>
+      <button class="libsend" data-lb="enviar" id="libSend"></button>
+    </section>
+  </div>`;
+  $('#libGrupo').value = L.grupo; $('#libJogo').value = L.jogo;
+  libList(); libSelList();
+}
+async function libCurrent() {
+  const L = S.lib;
+  if (L.grupo === 'todos') return L.base.grupos.flatMap(g => g.itens);
+  if (L.grupo === 'abertos') return L.abertos;
+  if (L.grupo === 'jogos') return L.jogo ? libJogo(L.jogo) : null;
+  const g = L.base.grupos[+L.grupo.slice(1)]; return g ? g.itens : [];
+}
+let libSeq = 0;
+async function libList() {
+  const box = $('#libLista'); if (!box) return;
+  const L = S.lib, my = ++libSeq;
+  if (L.grupo === 'jogos' && L.jogo && !L.cache[L.jogo]) box.innerHTML = '<p class="vazio">Carregando…</p>';
+  let itens;
+  try { itens = await libCurrent(); } catch (e) { box.innerHTML = '<p class="vazio">Não consegui carregar este jogo (sem internet?).</p>'; return; }
+  if (my !== libSeq) return;
+  if (!itens) { L.lista = []; box.innerHTML = `<p class="vazio">Escolha um jogo acima. São ${L.jogos.reduce((n, j) => n + j[2], 0)} instrumentos tirados das trilhas de ${L.jogos.length} jogos de Mega Drive.</p>`; return; }
+  const q = norm(L.busca.trim());
+  const lista = q ? itens.filter(it => norm(it.ins.name).includes(q)) : itens;
+  L.lista = lista;
+  const sel = new Set(L.sel.map(x => x.k)), MAX = 600;
+  box.innerHTML = lista.length ? lista.slice(0, MAX).map((it, i) => `<div class="li${it.k === L.prevKey ? ' tocando' : ''}" data-i="${i}"><button class="tst" data-lb="test" aria-label="Ouvir">▶</button><span class="nm">${esc(it.ins.name)}</span><span class="ty">${it.ruido ? 'RUÍDO' : it.ins.type === 'fm' ? 'FM' : 'PSG'}</span><button class="add${sel.has(it.k) ? ' on' : ''}" data-lb="add" aria-label="Selecionar">${sel.has(it.k) ? '✓' : '+'}</button></div>`).join('')
+    + (lista.length > MAX ? `<p class="vazio">Mostrando ${MAX} de ${lista.length}. Use a busca para achar o resto.</p>` : '')
+    : '<p class="vazio">Nada encontrado.</p>';
+}
+function libSelList() {
+  const L = S.lib, box = $('#libSel'); if (!box) return;
+  $('#libSelT').textContent = `Selecionados (${L.sel.length})`;
+  box.innerHTML = L.sel.length
+    ? L.sel.map((it, i) => `<div class="li${it.k === L.prevKey ? ' tocando' : ''}" data-s="${i}"><button class="tst" data-lb="test" aria-label="Ouvir">▶</button><span class="nm">${esc(it.ins.name)}</span><button data-lb="rm" aria-label="Tirar da seleção">×</button></div>`).join('')
+    : '<p class="vazio">Toque em + para trazer instrumentos para cá. Depois envie todos de uma vez para a música.</p>';
+  const b = $('#libSend');
+  b.disabled = !L.sel.length;
+  b.textContent = L.sel.length ? `Enviar ${L.sel.length} para Instrumentos` : 'Enviar para Instrumentos';
+}
+function libTest(it, row) {
+  const L = S.lib;
+  L.prev = it.ins; L.prevKey = it.k; L.prevNoise = !!it.ruido;
+  document.querySelectorAll('#vLib .li.tocando').forEach(x => x.classList.remove('tocando'));
+  if (row) row.classList.add('tocando');
+  const t = $('#libTest'); if (t) t.innerHTML = libTestText();
+  ensureAudio().then(() => {
+    post({ t: 'pins', ins: it.ins });
+    const c = libGroup()[0];
+    clearTimeout(L.offT); if (L.offC !== null) post({ t: 'off', c: L.offC });
+    post({ t: 'on', c, n: it.nota || 48, i: -2, v: -1 }); L.offC = c;
+    L.offT = setTimeout(() => { post({ t: 'off', c }); L.offC = null; }, 800);
+  });
+}
+function libSend() {
+  const L = S.lib, s = S.song, livre = 128 - s.ins.length;
+  if (!L.sel.length) return;
+  if (livre <= 0) { toast('A música já tem 128 instrumentos (o máximo)'); return; }
+  const vai = L.sel.slice(0, livre), first = s.ins.length;
+  for (const it of vai) s.ins.push(JSON.parse(JSON.stringify(it.ins)));
+  L.sel = L.sel.slice(vai.length);
+  S.insSel = S.ins = first; changed();
+  toast(vai.length + (vai.length > 1 ? ' instrumentos enviados' : ' instrumento enviado') + (L.sel.length ? `; ${L.sel.length} não couberam (máx. 128)` : ''));
+  showView('vIns');
+}
+$('#vLib').addEventListener('click', async e => {
+  const L = S.lib, b = e.target.closest('[data-lb]'), a = b && b.dataset.lb;
+  if (a === 'voltar') { showView('vIns'); return; }
+  if (a === 'enviar') { libSend(); return; }
+  if (a === 'todos') {
+    const sel = new Set(L.sel.map(x => x.k)); let n = 0;
+    for (const it of L.lista) if (!sel.has(it.k)) { L.sel.push(it); n++; }
+    libList(); libSelList(); toast(n ? n + ' na seleção' : 'Já estão todos na seleção'); return;
+  }
+  if (a === 'abrir') {
+    const files = await pickFiles(); if (!files.length) return;
+    let n = 0;
+    for (const f of files) {
+      try { const ins = MDT.parseInsFile(new Uint8Array(await f.arrayBuffer()), f.name); L.abertos.push({ ins, nota: 48, k: 'a' + (L.nAbertos++) }); n++; }
+      catch (err) { toast(f.name + ': ' + err.message); }
+    }
+    if (n) { L.grupo = 'abertos'; L.busca = ''; renderLib(); toast(n > 1 ? n + ' arquivos abertos' : 'Arquivo aberto'); }
+    return;
+  }
+  const row = e.target.closest('.li'); if (!row) return;
+  if (row.dataset.s != null) {
+    const i = +row.dataset.s, it = L.sel[i]; if (!it) return;
+    if (a === 'rm') { L.sel.splice(i, 1); libSelList(); libList(); return; }
+    libTest(it, row); return;
+  }
+  const it = L.lista[+row.dataset.i]; if (!it) return;
+  if (a === 'add') {
+    const j = L.sel.findIndex(x => x.k === it.k);
+    if (j >= 0) L.sel.splice(j, 1); else L.sel.push(it);
+    b.classList.toggle('on', j < 0); b.textContent = j < 0 ? '✓' : '+';
+    libSelList(); return;
+  }
+  libTest(it, row);
+});
+$('#vLib').addEventListener('input', e => { if (e.target.id === 'libBusca') { S.lib.busca = e.target.value; libList(); } });
+$('#vLib').addEventListener('change', e => {
+  if (e.target.id === 'libGrupo') { S.lib.grupo = e.target.value; renderLib(); }
+  if (e.target.id === 'libJogo') { S.lib.jogo = e.target.value; libList(); }
 });
 
 // ------------------------------------------------------------ song view
@@ -1812,7 +2298,7 @@ $('#vSong').addEventListener('input', e => {
     case 'x-filter': S.opts.filter = t.checked; sendOpts(); saveLocal(); return;
     case 'x-ladder': S.opts.ladder = t.checked; sendOpts(); saveLocal(); return;
   }
-  changed();
+  changed('song:' + t.id);
 });
 
 // ------------------------------------------------------------ files
@@ -1820,6 +2306,13 @@ function pickFile(accept) {
   return new Promise(res => {
     const i = document.createElement('input'); i.type = 'file'; i.accept = accept;
     i.onchange = () => res(i.files[0] || null); i.click();
+  });
+}
+// several files at once; no "accept" filter because Android greys out unknown extensions like .tfi
+function pickFiles() {
+  return new Promise(res => {
+    const i = document.createElement('input'); i.type = 'file'; i.multiple = true;
+    i.onchange = () => res([...i.files]); i.click();
   });
 }
 async function inflate(u8) {
@@ -1879,6 +2372,8 @@ function renderFile() {
     <p class="small" id="midiList">${midiListText()}</p>
     <p class="small">USB: ligue o teclado com um cabo OTG e toque em "Ligar MIDI". Bluetooth: pareie o teclado no Android primeiro (alguns precisam de um app como "MIDI BLE Connect"); depois ele aparece aqui como um teclado USB. Program Change troca o instrumento. Com ● ligado, notas vão para o padrão; acordes ocupam canais vizinhos.</p>
   </div>
+  <h3>Ajuda</h3>
+  <div class="card"><p class="small">Tutorial completo, com todas as telas explicadas: <a href="../md-tracker-tutorial.html" target="_blank" rel="noopener" style="color:var(--accent)">junkatana.github.io/md-tracker-tutorial.html</a></p></div>
   <h3>Sobre a fidelidade</h3>
   <div class="card"><p class="small">O som sai de uma emulação do YM2612 (envelopes, detune, feedback, LFO, SSG-EG, DAC) e do SN76489 da Sega, calibrada contra o libvgm. O que você ouve aqui é o que o .vgm manda para o chip. Ainda não há modo FM3 estendido nem wavetables. Pitch de porta e vibrato seguem o DefleMask de forma aproximada.</p></div>
   </div>`;
@@ -1917,8 +2412,8 @@ $('#vFile').addEventListener('click', async e => {
 });
 function loadSong(s) {
   if (!s.fxCols) s.fxCols = new Array(10).fill(1);
-  S.song = s; S.o = 0; S.row = 0; S.ch = 0; S.f = 0; S.ins = 0; S.insSel = 0;
-  stop(); post({ t: 'song', song: s }); saveLocal(); updateDock();
+  S.song = s; S.o = 0; S.row = 0; S.ch = 0; S.f = 0; S.ins = 0; S.insSel = 0; SEL.on = false;
+  stop(); post({ t: 'song', song: s }); changed(); updateDock();
   if (S.view === 'vFile') renderFile();
 }
 
@@ -1948,11 +2443,28 @@ function onMidi(ev) {
 const KB = 'zsxdcvgbhnjm,l.;/q2w3er5t6y7ui9o0p[=]';
 const KBN = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31];
 const kHeld = new Set();
+function shiftMove(fn) {
+  const a = SEL.on ? { r: SEL.r0, g: SEL.g0 } : { r: S.row, g: gOf(S.ch, S.f) };
+  fn(); setSel(a.r, a.g, S.row, gOf(S.ch, S.f), 'cells');
+}
 document.addEventListener('keydown', e => {
-  if (e.target.matches('input, select, textarea') || e.ctrlKey || e.metaKey || e.altKey) return;
+  if (e.target.matches('input, select, textarea')) return;
   const k = e.key.toLowerCase();
+  if (e.ctrlKey || e.metaKey) {
+    if (k === 'z' && !e.shiftKey) { e.preventDefault(); undo(); }
+    else if (k === 'y' || (k === 'z' && e.shiftKey)) { e.preventDefault(); redo(); }
+    else if (S.view === 'vPat' && ({ c: 'copy', x: 'cut', v: 'paste', a: 'all' })[k]) { e.preventDefault(); patOp(({ c: 'copy', x: 'cut', v: 'paste', a: 'all' })[k]); }
+    return;
+  }
+  if (e.altKey) return;
   if (k === ' ') { e.preventDefault(); S.playing ? stop() : play(false); return; }
-  if (S.view !== 'vPat' && S.view !== 'vIns') return;
+  if (S.view !== 'vPat' && S.view !== 'vIns' && S.view !== 'vLib') return;
+  if (k === 'escape') { clearSel(); return; }
+  if (e.shiftKey && S.view === 'vPat' && k.startsWith('arrow')) {
+    e.preventDefault();
+    shiftMove(() => { if (k === 'arrowup') setCursor(S.row - 1, S.ch, S.f); else if (k === 'arrowdown') setCursor(S.row + 1, S.ch, S.f); else moveField(k === 'arrowleft' ? -1 : 1); });
+    return;
+  }
   if (k === 'arrowup') { e.preventDefault(); setCursor(S.row - 1, S.ch, S.f); return; }
   if (k === 'arrowdown') { e.preventDefault(); setCursor(S.row + 1, S.ch, S.f); return; }
   if (k === 'arrowleft') { e.preventDefault(); moveField(-1); return; }
@@ -1975,6 +2487,6 @@ document.addEventListener('keyup', e => { const k = e.key.toLowerCase(); if (kHe
 document.addEventListener('pointerdown', () => { if (!ctx) ensureAudio(); }, { once: true, capture: true });
 S.song = loadLocal() || MDT.demoSong();
 if (!S.song.fxCols) S.song.fxCols = new Array(10).fill(1);
-buildPiano(); renderGrid(); updateDock();
+buildPiano(); renderGrid(); updateDock(); histReset();
 </script>
 <script>if('serviceWorker' in navigator&&location.protocol==='https:'||location.hostname==='localhost'){navigator.serviceWorker&&navigator.serviceWorker.register('sw.js').catch(function(e){console.info('SW',e)})}</script>

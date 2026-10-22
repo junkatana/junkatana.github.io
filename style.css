@@ -251,6 +251,7 @@ main { max-width: 1100px; margin: 0 auto; padding: 24px 16px 32px; }
 .tipo-traducao { color: var(--verde); }
 .tipo-romhack { color: var(--rosa); }
 .tipo-emulador { color: var(--roxo); }
+.tipo-ferramenta { color: #ffa94d; }
 .status-concluido { color: var(--verde); }
 .status-em-andamento { color: var(--ouro); }
 .status-pausado { color: var(--suave); }
@@ -274,6 +275,7 @@ main { max-width: 1100px; margin: 0 auto; padding: 24px 16px 32px; }
 .console.amiga { background: #e66b1e; }
 .console.gba { background: #4a3fb3; }
 .console.msx { background: #2d6fb5; }
+.console.web { background: #2b7a5f; }
 .seta-console { color: var(--ouro); font-size: .65rem; }
 
 .vazio { text-align: center; color: var(--suave); }
@@ -593,3 +595,63 @@ body, h1, h2, h3, button, a { font-variant-ligatures: none; }
 .passos li { margin-bottom: 6px; }
 .passos li::marker { color: var(--ouro); font-weight: 600; }
 .variante .galeria { margin-top: 20px; }
+
+/* ---------- tutorial do MD Tracker ---------- */
+.tut { max-width: 1040px; }
+.tut-heroi { display: grid; grid-template-columns: minmax(0, 1fr) 220px; gap: 28px; align-items: center; padding: 28px 30px; margin-top: 12px; }
+.tut-selo { margin: 0; font-family: "Press Start 2P", monospace; font-size: .7rem; color: var(--ciano); letter-spacing: .1em; }
+.tut-heroi h1 { font-size: clamp(1.7rem, 4.5vw, 2.6rem); line-height: 1.15; color: var(--ouro); text-shadow: 3px 3px 0 #7a2bd6; margin: 10px 0 12px; }
+.tut-heroi .subtitulo { margin: 0; }
+.tut-heroi-img, .tut-tela img { display: block; width: 100%; height: auto; border-radius: 18px; border: 3px solid #05071a; box-shadow: 0 0 0 3px var(--borda), 0 14px 30px rgba(0, 0, 0, .5); background: #0f1118; }
+.botao-2 { background: linear-gradient(180deg, #e9ecff, #b9c0e8); box-shadow: inset 0 -4px 0 #8890bd, 0 3px 0 #05071a; }
+.tut-sumario { padding: 20px 26px; margin-top: 30px; }
+.tut-sumario h2 { margin: 0 0 8px; color: var(--ouro); font-size: 1.3rem; }
+.tut-sumario ol { margin: 0; padding-left: 26px; columns: 2 260px; column-gap: 30px; }
+.tut-sumario li { break-inside: avoid; margin: 3px 0; }
+.tut-sumario li::marker { color: var(--ouro); font-family: "Pixelify Sans", monospace; }
+.tut-sumario a { color: var(--texto); text-decoration: none; }
+.tut-sumario a:hover { color: var(--ouro); }
+.licao { margin-top: 34px; padding: 22px 26px 24px; scroll-margin-top: 16px; }
+.licao-cabeca { display: flex; align-items: baseline; gap: 14px; flex-wrap: wrap; margin-bottom: 8px; }
+.licao-num { font-family: "Press Start 2P", monospace; font-size: .62rem; color: #241a00; background: var(--ouro); padding: 5px 8px 4px; border-radius: 4px; box-shadow: 0 2px 0 #05071a; white-space: nowrap; }
+.licao h2 { margin: 0; font-size: 1.45rem; color: var(--texto); }
+.licao h3 { margin: 18px 0 6px; font-size: 1.1rem; color: var(--ciano); }
+.licao-corpo { display: grid; grid-template-columns: minmax(0, 1fr); gap: 26px; }
+.com-fig .licao-corpo { grid-template-columns: minmax(0, 1fr) 230px; }
+.licao-texto > :first-child { margin-top: 0; }
+.licao-texto p, .licao-texto li { color: #dfe3ff; }
+.licao-texto ul, .licao-texto ol { padding-left: 22px; }
+.licao-texto li { margin: 4px 0; }
+.licao-texto li::marker { color: var(--ouro); }
+.licao-figs { display: flex; flex-direction: column; gap: 18px; }
+.tut-fig { margin: 0; }
+.tut-tela { display: block; width: 100%; padding: 0; border: 0; background: none; cursor: zoom-in; }
+.tut-fig figcaption { font-size: .85rem; color: var(--suave); margin-top: 8px; text-align: center; }
+.licao kbd { display: inline-block; min-width: 1.6em; text-align: center; font-family: "JetBrains Mono", ui-monospace, monospace; font-size: .85em; line-height: 1.3; padding: 1px 6px; border-radius: 5px; background: #20294f; color: var(--texto); border: 1px solid #4b5694; box-shadow: 0 2px 0 #05071a; white-space: nowrap; }
+.licao code { font-family: "JetBrains Mono", ui-monospace, monospace; font-size: .9em; background: rgba(5, 7, 26, .55); color: var(--ciano); padding: 1px 5px; border-radius: 4px; }
+.nota { border-left: 3px solid var(--ouro); padding: 6px 12px; background: rgba(255, 210, 94, .07); border-radius: 0 6px 6px 0; }
+.anatomia { font-family: "JetBrains Mono", ui-monospace, monospace; font-size: 1.5rem; background: #0f1118; border: 2px solid #2b3042; border-radius: 8px; padding: 10px 18px; display: inline-block; margin: 4px 0 6px; letter-spacing: .04em; }
+.a-n { color: #8fd0ff; } .a-i { color: #f3b45c; } .a-v { color: #7fd8a8; } .a-x { color: #f290bd; } .a-y { color: #d9a7f5; }
+.licao-texto li > .a-n, .licao-texto li > .a-i, .licao-texto li > .a-v, .licao-texto li > .a-x, .licao-texto li > .a-y { font-family: "JetBrains Mono", ui-monospace, monospace; font-weight: 600; }
+.tabela-rolar { overflow-x: auto; margin: 10px 0; }
+.tut-tabela { width: 100%; border-collapse: collapse; font-size: .93rem; }
+.tut-tabela th { text-align: left; font-family: "Pixelify Sans", monospace; font-weight: 600; color: var(--ouro); padding: 6px 10px; border-bottom: 2px solid rgba(233, 236, 255, .35); }
+.tut-tabela td { padding: 6px 10px; border-bottom: 1px solid rgba(233, 236, 255, .12); vertical-align: top; color: #dfe3ff; }
+.tut-tabela td:first-child { white-space: nowrap; }
+.tut-tabela .nw { white-space: nowrap; color: var(--suave); }
+.teclado-pc { display: flex; flex-direction: column; gap: 6px; margin: 10px 0; overflow-x: auto; padding-bottom: 4px; }
+.teclado-pc .fila { display: flex; gap: 4px; }
+.teclado-pc .fila + .fila { padding-left: 18px; }
+.tecla { flex: none; width: 40px; padding: 4px 0 3px; text-align: center; border-radius: 6px; background: #e8e9ef; color: #12141b; box-shadow: 0 3px 0 #05071a; }
+.tecla.preta { background: #12141b; color: #e8e9ef; border: 1px solid #4b5694; }
+.tecla b { display: block; font-family: "JetBrains Mono", ui-monospace, monospace; font-size: .95rem; }
+.tecla small { display: block; font-size: .68rem; opacity: .75; }
+@media (max-width: 720px) {
+  .tut-heroi { grid-template-columns: minmax(0, 1fr); padding: 22px 20px; }
+  .tut-heroi-img { max-width: 220px; margin: 0 auto; }
+  .com-fig .licao-corpo { grid-template-columns: minmax(0, 1fr); }
+  .licao-figs { flex-direction: row; justify-content: center; }
+  .licao-figs .tut-fig { max-width: 230px; flex: 1; }
+  .licao { padding: 18px 16px 20px; }
+  .anatomia { font-size: 1.2rem; }
+}

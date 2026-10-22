@@ -331,6 +331,49 @@ const PROJETOS = [
     ]
   },
   {
+    id: "md-tracker",
+    titulo: "MD Tracker",
+    tipo: "ferramenta",
+    de: { pt: "Celular / PC", en: "Phone / PC" },
+    para: "Mega Drive",
+    status: "em-andamento",
+    capa: "img/md-tracker/capa.webp",
+    resumo: {
+      pt: "Um tracker para compor música de Mega Drive direto no celular, com o som do YM2612 e do PSG emulado e exportação para VGM.",
+      en: "A tracker for composing Mega Drive music right on your phone, with an emulated YM2612 and PSG and VGM export."
+    },
+    texto: {
+      pt: [
+        "O MD Tracker é um app de música feito para o celular. Ele funciona como os trackers clássicos (DefleMask, Furnace): a música é escrita em linhas e canais, e cada canal é um dos chips de som do Mega Drive. São 6 canais FM do YM2612, 3 ondas quadradas e 1 canal de ruído do PSG.",
+        "O som é emulado em tempo real, então o que você ouve no celular é o que o console vai tocar. Ao terminar, exporte um .vgm e coloque no seu jogo com o SGDK, ou salve um .dmf para abrir no DefleMask e no Furnace.",
+        "Vem com uma biblioteca de instrumentos para ouvir antes de usar: 184 instrumentos (violões, metais, cordas, bateria, sintetizadores, efeitos e sons de PSG) e mais 29.697 tirados das trilhas de 637 jogos de Mega Drive.",
+        "Funciona sem internet depois da primeira visita e pode ser instalado como app no Android. Também aceita teclado MIDI por USB ou Bluetooth."
+      ],
+      en: [
+        "MD Tracker is a music app made for phones. It works like the classic trackers (DefleMask, Furnace): music is written in rows and channels, and every channel is one of the Mega Drive sound chips. That's 6 FM channels from the YM2612, plus 3 square waves and 1 noise channel from the PSG.",
+        "The sound is emulated in real time, so what you hear on your phone is what the console will play. When you're done, export a .vgm and drop it into your game with SGDK, or save a .dmf to open in DefleMask and Furnace.",
+        "It ships with an instrument library you can listen to before using: 184 instruments (guitars, brass, strings, drums, synths, effects and PSG sounds) plus 29,697 more taken from the soundtracks of 637 Mega Drive games.",
+        "It works offline after the first visit and can be installed as an app on Android. MIDI keyboards over USB or Bluetooth work too."
+      ]
+    },
+    destaques: {
+      pt: ["6 canais FM + 3 quadradas + ruído", "Biblioteca com 184 instrumentos + 29.697 de jogos", "Seleção de blocos com toque longo", "Desfazer e refazer na tela", "Abre e salva .dmf; exporta .vgm e .wav", "Teclado MIDI USB e Bluetooth"],
+      en: ["6 FM channels + 3 squares + noise", "Library with 184 instruments + 29,697 from games", "Block selection with a long press", "On-screen undo and redo", "Opens and saves .dmf; exports .vgm and .wav", "USB and Bluetooth MIDI keyboards"]
+    },
+    galeria: [
+      { img: "img/md-tracker/padrao.webp", legenda: { pt: "Editor de padrão tocando a demo", en: "Pattern editor playing the demo" } },
+      { img: "img/md-tracker/biblioteca.webp", legenda: { pt: "Biblioteca: ouça à esquerda, escolha à direita", en: "Library: listen on the left, pick on the right" } },
+      { img: "img/md-tracker/selecao.webp", legenda: { pt: "Seleção de bloco com toque longo", en: "Block selection with a long press" } },
+      { img: "img/md-tracker/operadores.webp", legenda: { pt: "Editor dos 4 operadores FM", en: "Editor for the 4 FM operators" } },
+      { img: "img/md-tracker/ordem.webp", legenda: { pt: "Ordem da música", en: "Song order" } },
+      { img: "img/md-tracker/arquivo.webp", legenda: { pt: "Exportar para o jogo e MIDI", en: "Export to your game and MIDI" } }
+    ],
+    links: [
+      { texto: { pt: "Abrir o MD Tracker", en: "Open MD Tracker" }, url: "md-tracker/" },
+      { texto: { pt: "Tutorial completo", en: "Full tutorial" }, url: "md-tracker-tutorial.html" }
+    ]
+  },
+  {
     id: "solstice",
     titulo: { pt: "Solstice — Tradução PT-BR", en: "Solstice — Portuguese Translation" },
     tipo: "traducao",

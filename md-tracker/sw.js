@@ -1,6 +1,7 @@
 // MD Tracker service worker: works offline after the first visit.
-const CACHE = 'mdt-v1';
-const CORE = ['./', './index.html', './manifest.json', './icon-192.png', './icon-512.png', './icon-maskable.png'];
+const CACHE = 'mdt-v2';
+const CORE = ['./', './index.html', './manifest.json', './icon-192.png', './icon-512.png', './icon-maskable.png',
+  './biblioteca/basicos.json', './biblioteca/jogos/index.json'];
 self.addEventListener('install', e => {
   e.waitUntil(caches.open(CACHE).then(c => c.addAll(CORE)).then(() => self.skipWaiting()));
 });

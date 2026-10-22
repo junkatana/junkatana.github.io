@@ -11,6 +11,7 @@ const TEXTOS = {
     filtro_traducao: "Traduções",
     filtro_romhack: "Romhacks",
     filtro_emulador: "Emuladores",
+    filtro_ferramenta: "Ferramentas",
     vazio: "Nenhum projeto nesta categoria ainda.",
     sobre_texto: "Aqui ficam os projetos em que estou trabalhando: jogos levados de uma plataforma para outra, traduções, modificações em jogos clássicos e ferramentas para quem gosta de emulação.",
     aviso: "Os arquivos disponibilizados são patches. Para jogar, aplique o patch na sua própria cópia original do jogo (por exemplo, com o Rom Patcher JS).",
@@ -36,9 +37,17 @@ const TEXTOS = {
     tipo_traducao: "Tradução",
     tipo_romhack: "Romhack",
     tipo_emulador: "Emulador",
+    tipo_ferramenta: "Ferramenta",
     status_concluido: "Concluído",
     "status_em-andamento": "Em andamento",
-    status_pausado: "Pausado"
+    status_pausado: "Pausado",
+    tut_titulo: "Tutorial do MD Tracker",
+    tut_intro: "Tudo o que você precisa para compor música de Mega Drive no celular: das primeiras notas até o arquivo pronto para tocar no seu jogo.",
+    tut_abrir: "Abrir o MD Tracker",
+    tut_projeto: "Página do projeto",
+    tut_sumario: "Lições",
+    tut_licao: "Lição",
+    tut_fim: "Agora é com você. Bom som!"
   },
   en: {
     saudacao: "Greetings, traveler! I bring classic games to other consoles and make romhacks and emulation tools. Choose a project below.",
@@ -50,6 +59,7 @@ const TEXTOS = {
     filtro_traducao: "Translations",
     filtro_romhack: "Romhacks",
     filtro_emulador: "Emulators",
+    filtro_ferramenta: "Tools",
     vazio: "No projects in this category yet.",
     sobre_texto: "These are the projects I'm working on: games brought from one platform to another, translations, modifications of classic games and tools for emulation fans.",
     aviso: "Downloads are patches only. To play, apply the patch to your own original copy of the game (for example with Rom Patcher JS).",
@@ -75,9 +85,17 @@ const TEXTOS = {
     tipo_traducao: "Translation",
     tipo_romhack: "Romhack",
     tipo_emulador: "Emulator",
+    tipo_ferramenta: "Tool",
     status_concluido: "Finished",
     "status_em-andamento": "In progress",
-    status_pausado: "On hold"
+    status_pausado: "On hold",
+    tut_titulo: "MD Tracker Tutorial",
+    tut_intro: "Everything you need to compose Mega Drive music on your phone: from your first notes to a file that plays in your own game.",
+    tut_abrir: "Open MD Tracker",
+    tut_projeto: "Project page",
+    tut_sumario: "Lessons",
+    tut_licao: "Lesson",
+    tut_fim: "Now it's your turn. Have fun!"
   }
 };
 
@@ -135,13 +153,16 @@ const CLASSE_CONSOLE = {
   "Amiga": "amiga",
   "Game Boy Advance": "gba",
   "MSX": "msx",
-  "NES": "nes"
+  "NES": "nes",
+  "Celular / PC": "web",
+  "Phone / PC": "web"
 };
 
 // "Super Nintendo → Mega Drive" como duas etiquetas de console.
 function plataforma(p) {
   const box = el("p", "plataforma");
-  const consoles = p.de === p.para || !p.para ? [p.de] : [p.de, p.para];
+  const de = tr(p.de), para = tr(p.para);
+  const consoles = de === para || !para ? [de] : [de, para];
   consoles.forEach((nome, i) => {
     if (i) box.appendChild(el("span", "seta-console", "▶"));
     box.appendChild(el("span", "console " + (CLASSE_CONSOLE[nome] || "outro"), nome));
