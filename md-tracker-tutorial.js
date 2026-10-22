@@ -425,7 +425,7 @@ ${tabelaEfeitos("en")}`
 <ul>
 <li><b>Chrome no Android</b>. O Firefox e o Safari do iPhone não têm Web MIDI. O app instalado na tela inicial também serve, porque ele roda no Chrome.</li>
 <li>Para <b>cabo</b>: um adaptador <b>OTG</b> (USB-C ou micro-USB do celular para USB-A do teclado). Quase todo teclado com USB funciona sem driver.</li>
-<li>Para <b>Bluetooth</b>: um teclado com <b>Bluetooth MIDI (BLE MIDI)</b>, por exemplo a linha Bluetooth da M-Audio, Korg microKEY Air, CME, Roland/Yamaha com Bluetooth MIDI ou adaptadores como o WIDI. Teclado “Bluetooth de áudio” ou de digitação não serve. Você também vai precisar do app gratuito <b>MIDI BLE Connect</b>, da Play Store.</li>
+<li>Para <b>Bluetooth</b>: um teclado com <b>Bluetooth MIDI (BLE MIDI)</b>, por exemplo a linha Bluetooth da M-Audio, Korg microKEY Air, CME, Roland/Yamaha com Bluetooth MIDI ou adaptadores como o WIDI. Teclado “Bluetooth de áudio” ou de digitação não serve. Você também vai precisar do app gratuito <a href="https://play.google.com/store/apps/details?id=com.mobileer.example.midibtlepairing" target="_blank" rel="noopener"><b>MIDI BLE Connect</b></a>, da Play Store.</li>
 </ul>
 
 <h3>1. Pelo cabo USB (mais simples)</h3>
@@ -439,7 +439,7 @@ ${tabelaEfeitos("en")}`
 <h3>2. Pelo Bluetooth (com o MIDI BLE Connect)</h3>
 <p class="nota">Parear o teclado nas <b>Configurações → Bluetooth</b> do Android <b>não</b> basta. O Android só entrega um teclado BLE MIDI para os apps depois que algum app abre a conexão MIDI. É isso que o MIDI BLE Connect faz.</p>
 <ol class="passos">
-<li>Instale o <b>MIDI BLE Connect</b> pela Play Store e ligue o Bluetooth do celular.</li>
+<li>Instale o <a href="https://play.google.com/store/apps/details?id=com.mobileer.example.midibtlepairing" target="_blank" rel="noopener"><b>MIDI BLE Connect</b></a> pela Play Store e ligue o Bluetooth do celular.</li>
 <li>Ligue o teclado e deixe-o no modo Bluetooth. Em muitos teclados a luz do Bluetooth fica piscando enquanto espera conexão. Se ele estiver conectado a outro aparelho, como um PC ou tablet, desconecte de lá primeiro.</li>
 <li>Abra o MIDI BLE Connect e toque em <b>Bluetooth Scan</b>. O Android pede a permissão <b>Dispositivos por perto</b> (em Androids mais antigos, <b>Local</b>): toque em <b>Permitir</b>. Sem ela o app não encontra nada. Nos Androids antigos, a localização do celular também precisa estar ligada durante a busca.</li>
 <li>Toque no nome do seu teclado na lista. Se o Android pedir para <b>parear</b>, aceite. Quando aparecer como conectado, pode sair do app com o botão de início. <b>Não feche o app</b> na lista de apps recentes: em alguns celulares isso derruba a conexão.</li>
@@ -478,7 +478,7 @@ ${tabelaEfeitos("en")}`
 <ul>
 <li><b>Chrome on Android</b>. Firefox and iPhone Safari have no Web MIDI. The app installed on the home screen also works, because it runs on Chrome.</li>
 <li>For a <b>cable</b>: an <b>OTG</b> adapter (the phone's USB-C or micro-USB to the keyboard's USB-A). Almost every USB keyboard works without a driver.</li>
-<li>For <b>Bluetooth</b>: a keyboard with <b>Bluetooth MIDI (BLE MIDI)</b>, for example M-Audio's Bluetooth line, Korg microKEY Air, CME, Roland/Yamaha with Bluetooth MIDI, or adapters like WIDI. “Bluetooth audio” or typing keyboards won't do. You'll also need the free <b>MIDI BLE Connect</b> app from the Play Store.</li>
+<li>For <b>Bluetooth</b>: a keyboard with <b>Bluetooth MIDI (BLE MIDI)</b>, for example M-Audio's Bluetooth line, Korg microKEY Air, CME, Roland/Yamaha with Bluetooth MIDI, or adapters like WIDI. “Bluetooth audio” or typing keyboards won't do. You'll also need the free <a href="https://play.google.com/store/apps/details?id=com.mobileer.example.midibtlepairing" target="_blank" rel="noopener"><b>MIDI BLE Connect</b></a> app from the Play Store.</li>
 </ul>
 
 <h3>1. Over USB (simplest)</h3>
@@ -492,7 +492,7 @@ ${tabelaEfeitos("en")}`
 <h3>2. Over Bluetooth (with MIDI BLE Connect)</h3>
 <p class="nota">Pairing the keyboard in Android's <b>Settings → Bluetooth</b> is <b>not</b> enough. Android only hands a BLE MIDI keyboard to apps after some app opens the MIDI connection. That's what MIDI BLE Connect does.</p>
 <ol class="passos">
-<li>Install <b>MIDI BLE Connect</b> from the Play Store and turn on the phone's Bluetooth.</li>
+<li>Install <a href="https://play.google.com/store/apps/details?id=com.mobileer.example.midibtlepairing" target="_blank" rel="noopener"><b>MIDI BLE Connect</b></a> from the Play Store and turn on the phone's Bluetooth.</li>
 <li>Turn the keyboard on in Bluetooth mode. On many keyboards the Bluetooth light blinks while it waits for a connection. If it's connected to another device, like a PC or tablet, disconnect it there first.</li>
 <li>Open MIDI BLE Connect and tap <b>Bluetooth Scan</b>. Android asks for the <b>Nearby devices</b> permission (<b>Location</b> on older Androids): tap <b>Allow</b>. Without it the app finds nothing. On older Androids, location must also be switched on during the scan.</li>
 <li>Tap your keyboard's name in the list. If Android asks to <b>pair</b>, accept. Once it shows as connected, leave the app with the home button. <b>Don't swipe it away</b> in recent apps: on some phones that drops the connection.</li>
