@@ -2364,13 +2364,15 @@ function renderFile() {
   </div>
   <h3>Teclado MIDI (USB e Bluetooth)</h3>
   <div class="card" style="display:flex;flex-direction:column;gap:8px">
-    <div class="row chips"><button data-fa="midi">${m.acc ? 'MIDI ligado' : 'Ligar MIDI'}</button></div>
+    <div class="row chips"><button data-fa="midi">${m.acc ? 'MIDI ligado' : m.bloq ? 'MIDI bloqueado: tentar de novo' : 'Ligar MIDI'}</button></div>
     <div class="row">
       <div class="field"><label for="mCh">Canal MIDI</label><select id="mCh"><option value="-1">Todos</option>${[...Array(16)].map((_, i) => `<option value="${i}" ${m.ch === i ? 'selected' : ''}>${i + 1}</option>`).join('')}</select></div>
       <label class="row small"><input type="checkbox" id="mVel" ${m.vel ? 'checked' : ''}> Velocidade vira volume</label>
     </div>
     <p class="small" id="midiList">${midiListText()}</p>
-    <p class="small">USB: ligue o teclado com um cabo OTG e toque em "Ligar MIDI". Bluetooth: pareie o teclado no Android primeiro (alguns precisam de um app como "MIDI BLE Connect"); depois ele aparece aqui como um teclado USB. Program Change troca o instrumento. Com ● ligado, notas vão para o padrão; acordes ocupam canais vizinhos.</p>
+    ${m.bloq ? '<p class="small" style="color:var(--accent)">O Chrome bloqueou o MIDI para este site. Toque no ícone à esquerda do endereço → Permissões (ou Configurações do site) → Dispositivos MIDI → Permitir. Depois recarregue a página.</p>' : ''}
+    <p class="small">USB: ligue o teclado com um adaptador OTG e toque em "Ligar MIDI". Bluetooth: parear nas configurações do Android não basta; conecte o teclado pelo app "MIDI BLE Connect" (Play Store) e depois toque em "Ligar MIDI". Program Change troca o instrumento. Com ● ligado, notas vão para o padrão; acordes ocupam canais vizinhos.</p>
+    <p class="small"><a href="../md-tracker-tutorial.html#midi" target="_blank" rel="noopener" style="color:var(--accent)">Passo a passo do teclado MIDI no Android (USB, Bluetooth e permissão)</a></p>
   </div>
   <h3>Ajuda</h3>
   <div class="card"><p class="small">Tutorial completo, com todas as telas explicadas: <a href="../md-tracker-tutorial.html" target="_blank" rel="noopener" style="color:var(--accent)">junkatana.github.io/md-tracker-tutorial.html</a></p></div>
@@ -2422,12 +2424,15 @@ async function enableMidi() {
   if (!navigator.requestMIDIAccess) { toast('Este navegador não tem Web MIDI. Use o Chrome no Android.'); return; }
   try {
     const acc = await navigator.requestMIDIAccess({ sysex: false });
-    S.midi.acc = acc;
+    S.midi.acc = acc; S.midi.bloq = false;
     const bind = () => { for (const i of acc.inputs.values()) i.onmidimessage = onMidi; $('#midiDot').classList.toggle('live', acc.inputs.size > 0); const l = $('#midiList'); if (l) l.innerHTML = midiListText(); };
     acc.onstatechange = bind; bind();
     if (S.view === 'vFile') renderFile();
     toast(acc.inputs.size ? 'MIDI pronto' : 'MIDI ligado, aguardando teclado');
-  } catch (e) { toast('MIDI bloqueado aqui. Abra o arquivo .html direto no Chrome. (' + (e.message || e.name) + ')'); }
+  } catch (e) {
+    S.midi.bloq = true; if (S.view === 'vFile') renderFile();
+    toast(e.name === 'NotAllowedError' || e.name === 'SecurityError' ? 'MIDI bloqueado. Libere em Configurações do site → Dispositivos MIDI.' : 'O MIDI não ligou: ' + (e.message || e.name));
+  }
 }
 let dotT = 0;
 function onMidi(ev) {

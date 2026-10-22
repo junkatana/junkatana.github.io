@@ -418,30 +418,114 @@ ${tabelaEfeitos("en")}`
   },
   {
     id: "midi",
-    titulo: { pt: "Teclado MIDI", en: "MIDI keyboard" },
+    titulo: { pt: "Teclado MIDI no Android (USB e Bluetooth)", en: "MIDI keyboard on Android (USB and Bluetooth)" },
     html: {
-      pt: `<ol class="passos">
-<li><b>USB</b>: ligue o teclado no celular com um cabo OTG. <b>Bluetooth</b>: pareie primeiro no Android (alguns teclados precisam de um app como o “MIDI BLE Connect”).</li>
-<li>Em <b>Arquivo → Ligar MIDI</b>, aceite a permissão. A bolinha ao lado do nome do app fica verde.</li>
-</ol>
+      pt: `<p>Tocar num teclado de verdade é bem mais rápido do que tocar na tela. O MD Tracker recebe as notas pelo <b>Web MIDI</b> do navegador, então funciona com qualquer teclado controlador que fale MIDI, por cabo ou por Bluetooth.</p>
+<h3>Do que você precisa</h3>
 <ul>
-<li>Com ${k("●")} ligado, o que você toca é escrito no padrão. <b>Acordes</b> ocupam canais vizinhos (C-E-G em FM1, FM2 e FM3).</li>
-<li><b>Velocidade vira volume</b>: tocar mais forte escreve um volume maior.</li>
-<li><b>Program Change</b> troca o instrumento.</li>
-<li>Escolha um <b>canal MIDI</b> se o teclado manda vários ao mesmo tempo.</li>
-<li>Na biblioteca, o teclado MIDI também toca o instrumento que está em teste.</li>
-</ul>`,
-      en: `<ol class="passos">
-<li><b>USB</b>: connect the keyboard to your phone with an OTG cable. <b>Bluetooth</b>: pair it in Android first (some keyboards need an app like “MIDI BLE Connect”).</li>
-<li>In <b>Arquivo → Ligar MIDI</b> (File → Turn on MIDI), accept the permission. The dot next to the app name turns green.</li>
+<li><b>Chrome no Android</b>. O Firefox e o Safari do iPhone não têm Web MIDI. O app instalado na tela inicial também serve, porque ele roda no Chrome.</li>
+<li>Para <b>cabo</b>: um adaptador <b>OTG</b> (USB-C ou micro-USB do celular para USB-A do teclado). Quase todo teclado com USB funciona sem driver.</li>
+<li>Para <b>Bluetooth</b>: um teclado com <b>Bluetooth MIDI (BLE MIDI)</b>, por exemplo a linha Bluetooth da M-Audio, Korg microKEY Air, CME, Roland/Yamaha com Bluetooth MIDI ou adaptadores como o WIDI. Teclado “Bluetooth de áudio” ou de digitação não serve. Você também vai precisar do app gratuito <b>MIDI BLE Connect</b>, da Play Store.</li>
+</ul>
+
+<h3>1. Pelo cabo USB (mais simples)</h3>
+<ol class="passos">
+<li>Ligue o teclado no celular com o adaptador OTG. Teclados sem fonte própria tiram energia do celular, e isso é normal.</li>
+<li>Se nada acontecer, procure <b>OTG</b> nas Configurações do Android e ative. Alguns Xiaomi, Realme e Oppo desligam o OTG sozinhos depois de alguns minutos.</li>
+<li>Abra o MD Tracker e vá em <b>Arquivo → Ligar MIDI</b>. Na primeira vez, o Chrome pede autorização (veja a parte 3).</li>
+<li>O nome do teclado aparece em “Conectado: …” e a bolinha ao lado do nome do app fica <b>verde</b>. Ela pisca a cada nota recebida.</li>
 </ol>
+
+<h3>2. Pelo Bluetooth (com o MIDI BLE Connect)</h3>
+<p class="nota">Parear o teclado nas <b>Configurações → Bluetooth</b> do Android <b>não</b> basta. O Android só entrega um teclado BLE MIDI para os apps depois que algum app abre a conexão MIDI. É isso que o MIDI BLE Connect faz.</p>
+<ol class="passos">
+<li>Instale o <b>MIDI BLE Connect</b> pela Play Store e ligue o Bluetooth do celular.</li>
+<li>Ligue o teclado e deixe-o no modo Bluetooth. Em muitos teclados a luz do Bluetooth fica piscando enquanto espera conexão. Se ele estiver conectado a outro aparelho, como um PC ou tablet, desconecte de lá primeiro.</li>
+<li>Abra o MIDI BLE Connect e toque em <b>Bluetooth Scan</b>. O Android pede a permissão <b>Dispositivos por perto</b> (em Androids mais antigos, <b>Local</b>): toque em <b>Permitir</b>. Sem ela o app não encontra nada. Nos Androids antigos, a localização do celular também precisa estar ligada durante a busca.</li>
+<li>Toque no nome do seu teclado na lista. Se o Android pedir para <b>parear</b>, aceite. Quando aparecer como conectado, pode sair do app com o botão de início. <b>Não feche o app</b> na lista de apps recentes: em alguns celulares isso derruba a conexão.</li>
+<li>Abra o MD Tracker no Chrome e toque em <b>Arquivo → Ligar MIDI</b>. Se o MD Tracker já estava aberto antes de conectar e o teclado não aparecer, recarregue a página e ligue o MIDI de novo.</li>
+</ol>
+<p>Depois que o teclado já foi conectado uma vez, nas próximas vezes basta abrir o MIDI BLE Connect, tocar no teclado da lista e voltar ao MD Tracker.</p>
+
+<h3>3. Autorização do navegador</h3>
+<p>Na primeira vez que você toca em <b>Ligar MIDI</b>, o Chrome pergunta se <b>junkatana.github.io</b> pode usar seus <b>dispositivos MIDI</b>. Toque em <b>Permitir</b>. O MD Tracker só <b>lê</b> as notas e não manda nada para o teclado.</p>
+<p>Se você tocou em <b>Bloquear</b> sem querer, o botão passa a mostrar “MIDI bloqueado”. Para liberar:</p>
+<ol class="passos">
+<li>No Chrome, toque no ícone à esquerda do endereço (os controles ou o cadeado) e depois em <b>Permissões</b>, ou em <b>Configurações do site</b>.</li>
+<li>Em <b>Dispositivos MIDI</b>, escolha <b>Permitir</b>.</li>
+<li>Recarregue a página e toque em <b>Ligar MIDI</b> de novo.</li>
+</ol>
+<p>Pelo menu também dá: <b>⋮ → Configurações → Configurações do site → Dispositivos MIDI</b>, e lá você tira o site da lista de bloqueados. No app instalado na tela inicial, abra o mesmo endereço no Chrome e faça isso por lá, porque a permissão é a mesma.</p>
+
+<h3>4. Tocando</h3>
 <ul>
-<li>With ${k("●")} on, what you play is written into the pattern. <b>Chords</b> use neighbouring channels (C-E-G on FM1, FM2 and FM3).</li>
-<li><b>Velocity becomes volume</b>: playing harder writes a higher volume.</li>
-<li><b>Program Change</b> switches instruments.</li>
-<li>Pick a <b>MIDI channel</b> if your keyboard sends on several at once.</li>
-<li>In the library, the MIDI keyboard also plays the instrument being previewed.</li>
-</ul>`
+<li>Sem gravar, o teclado só toca o instrumento escolhido, o que é bom para ensaiar.</li>
+<li>Com ${k("●")} ligado, cada nota é escrita no padrão e o cursor desce. <b>Acordes</b> ocupam canais vizinhos: C-E-G vai para FM1, FM2 e FM3.</li>
+<li><b>Velocidade vira volume</b>: tocar mais forte escreve um volume maior. Dá para desligar em Arquivo.</li>
+<li><b>Program Change</b> (os botões de “programa” do teclado) troca o instrumento.</li>
+<li>Se o teclado manda vários canais ao mesmo tempo, escolha um em <b>Canal MIDI</b>.</li>
+<li>Na <b>biblioteca de instrumentos</b>, o teclado toca o instrumento que está em teste, o que é ótimo para comparar timbres.</li>
+</ul>
+
+<h3>Se não funcionar</h3>
+<p><b>“Este navegador não tem Web MIDI”.</b> Você está no Firefox, no Safari ou num navegador embutido de outro app, como o do Instagram ou do WhatsApp. Abra o endereço no Chrome.</p>
+<p><b>“Nenhum teclado encontrado”.</b> USB: confira o OTG e teste o adaptador com um pendrive. Bluetooth: veja se o MIDI BLE Connect ainda mostra o teclado como conectado. Depois recarregue a página.</p>
+<p><b>O teclado some depois de um tempo.</b> A economia de bateria do Android pode fechar o MIDI BLE Connect. Em <b>Configurações → Apps → MIDI BLE Connect → Bateria</b>, escolha <b>Sem restrições</b>.</p>
+<p><b>As notas chegam atrasadas.</b> O Bluetooth tem um pouco de atraso por natureza, e o cabo é sempre mais rápido. Fones Bluetooth somam ainda mais atraso, então prefira fone com fio ou o alto-falante.</p>
+<p><b>Toca a oitava errada.</b> Use os botões de oitava do próprio teclado. O MD Tracker escreve exatamente a nota que recebe.</p>`,
+      en: `<p>Playing a real keyboard is much faster than tapping the screen. MD Tracker receives notes through the browser's <b>Web MIDI</b>, so any MIDI controller keyboard works, over a cable or over Bluetooth.</p>
+<h3>What you need</h3>
+<ul>
+<li><b>Chrome on Android</b>. Firefox and iPhone Safari have no Web MIDI. The app installed on the home screen also works, because it runs on Chrome.</li>
+<li>For a <b>cable</b>: an <b>OTG</b> adapter (the phone's USB-C or micro-USB to the keyboard's USB-A). Almost every USB keyboard works without a driver.</li>
+<li>For <b>Bluetooth</b>: a keyboard with <b>Bluetooth MIDI (BLE MIDI)</b>, for example M-Audio's Bluetooth line, Korg microKEY Air, CME, Roland/Yamaha with Bluetooth MIDI, or adapters like WIDI. “Bluetooth audio” or typing keyboards won't do. You'll also need the free <b>MIDI BLE Connect</b> app from the Play Store.</li>
+</ul>
+
+<h3>1. Over USB (simplest)</h3>
+<ol class="passos">
+<li>Connect the keyboard to the phone with the OTG adapter. Keyboards without their own power supply draw power from the phone, and that's normal.</li>
+<li>If nothing happens, search for <b>OTG</b> in Android Settings and turn it on. Some Xiaomi, Realme and Oppo phones switch OTG off by themselves after a few minutes.</li>
+<li>Open MD Tracker and go to <b>Arquivo → Ligar MIDI</b> (File → Turn on MIDI). The first time, Chrome asks for permission (see part 3).</li>
+<li>The keyboard's name shows up under “Conectado: …” and the dot next to the app name turns <b>green</b>. It blinks on every note received.</li>
+</ol>
+
+<h3>2. Over Bluetooth (with MIDI BLE Connect)</h3>
+<p class="nota">Pairing the keyboard in Android's <b>Settings → Bluetooth</b> is <b>not</b> enough. Android only hands a BLE MIDI keyboard to apps after some app opens the MIDI connection. That's what MIDI BLE Connect does.</p>
+<ol class="passos">
+<li>Install <b>MIDI BLE Connect</b> from the Play Store and turn on the phone's Bluetooth.</li>
+<li>Turn the keyboard on in Bluetooth mode. On many keyboards the Bluetooth light blinks while it waits for a connection. If it's connected to another device, like a PC or tablet, disconnect it there first.</li>
+<li>Open MIDI BLE Connect and tap <b>Bluetooth Scan</b>. Android asks for the <b>Nearby devices</b> permission (<b>Location</b> on older Androids): tap <b>Allow</b>. Without it the app finds nothing. On older Androids, location must also be switched on during the scan.</li>
+<li>Tap your keyboard's name in the list. If Android asks to <b>pair</b>, accept. Once it shows as connected, leave the app with the home button. <b>Don't swipe it away</b> in recent apps: on some phones that drops the connection.</li>
+<li>Open MD Tracker in Chrome and tap <b>Arquivo → Ligar MIDI</b>. If MD Tracker was already open before you connected and the keyboard doesn't show up, reload the page and turn MIDI on again.</li>
+</ol>
+<p>After the keyboard has been connected once, next time just open MIDI BLE Connect, tap the keyboard in the list and go back to MD Tracker.</p>
+
+<h3>3. Browser permission</h3>
+<p>The first time you tap <b>Ligar MIDI</b>, Chrome asks whether <b>junkatana.github.io</b> may use your <b>MIDI devices</b>. Tap <b>Allow</b>. MD Tracker only <b>reads</b> notes and sends nothing to the keyboard.</p>
+<p>If you tapped <b>Block</b> by mistake, the button shows “MIDI bloqueado” (MIDI blocked). To allow it again:</p>
+<ol class="passos">
+<li>In Chrome, tap the icon left of the address (the controls or the padlock), then <b>Permissions</b> or <b>Site settings</b>.</li>
+<li>Under <b>MIDI devices</b>, choose <b>Allow</b>.</li>
+<li>Reload the page and tap <b>Ligar MIDI</b> again.</li>
+</ol>
+<p>You can also go through the menu: <b>⋮ → Settings → Site settings → MIDI devices</b>, and remove the site from the blocked list. For the app installed on the home screen, open the same address in Chrome and do it there, because the permission is shared.</p>
+
+<h3>4. Playing</h3>
+<ul>
+<li>When not recording, the keyboard just plays the chosen instrument, which is good for practising.</li>
+<li>With ${k("●")} on, every note is written into the pattern and the cursor moves down. <b>Chords</b> use neighbouring channels: C-E-G goes to FM1, FM2 and FM3.</li>
+<li><b>Velocity becomes volume</b>: playing harder writes a higher volume. You can turn this off in Arquivo (File).</li>
+<li><b>Program Change</b> (the keyboard's “program” buttons) switches instruments.</li>
+<li>If your keyboard sends on several channels at once, pick one under <b>Canal MIDI</b> (MIDI channel).</li>
+<li>In the <b>instrument library</b>, the keyboard plays the instrument being previewed, which is great for comparing sounds.</li>
+</ul>
+
+<h3>If it doesn't work</h3>
+<p><b>“Este navegador não tem Web MIDI” (no Web MIDI).</b> You're in Firefox, Safari, or another app's built-in browser, like Instagram's or WhatsApp's. Open the address in Chrome.</p>
+<p><b>“Nenhum teclado encontrado” (no keyboard found).</b> USB: check OTG and test the adapter with a flash drive. Bluetooth: check that MIDI BLE Connect still shows the keyboard as connected. Then reload the page.</p>
+<p><b>The keyboard disappears after a while.</b> Android's battery saver may be closing MIDI BLE Connect. In <b>Settings → Apps → MIDI BLE Connect → Battery</b>, choose <b>Unrestricted</b>.</p>
+<p><b>Notes arrive late.</b> Bluetooth always adds a little delay, and a cable is always faster. Bluetooth headphones add even more delay, so use wired headphones or the speaker.</p>
+<p><b>Wrong octave.</b> Use the keyboard's own octave buttons. MD Tracker writes exactly the note it receives.</p>`
     }
   },
   {
