@@ -1218,7 +1218,7 @@ function buildDMP(ins) {
       w.u8((o.dt & 15) | ((o.dt2 || 0) << 4)); w.u8(o.d2r); w.u8(o.ssg);
     }
   } else {
-    w.u8(3); w.u8(0);
+    w.u8(2); w.u8(0);   // sistema Genesis, como os PSG do próprio DefleMask (SMS = 3 não abre numa música de Mega Drive)
     writeMacro(w, ins.vol);
     writeMacro(w, { v: ins.arp.fixed ? ins.arp.v : ins.arp.v.map(x => x + 12), loop: ins.arp.loop });
     w.u8(ins.arp.fixed ? 1 : 0);
