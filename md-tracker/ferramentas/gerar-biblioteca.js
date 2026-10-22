@@ -33,9 +33,12 @@ function medir(ins, nota, ruido) {
 }
 
 const CARR = MDT.CARRIERS;
+// Patches ajustados pelo ajustar-fm.js (comparando com instrumentos de verdade) substituem os escritos à mão.
+const AJUSTES = fs.existsSync(path.join(__dirname, 'ajustes-fm.json')) ? JSON.parse(fs.readFileSync(path.join(__dirname, 'ajustes-fm.json'))) : {};
 function fmDe(d) {
-  const ops = d.ops.map(([ar, dr, sl, d2r, rr, tl, mul, dt, rs]) => Object.assign(MDT.defFMOp(), { ar, dr, sl, d2r, rr, tl, mul, dt: dt + 3, rs }));
-  return { type: 'fm', name: d.nome, alg: d.alg, fb: d.fb, fms: d.fms || 0, ams: d.ams || 0, ops };
+  const a = AJUSTES[d.nome], fonte = a || d;
+  const ops = fonte.ops.map(([ar, dr, sl, d2r, rr, tl, mul, dt, rs, am, ssg]) => Object.assign(MDT.defFMOp(), { ar, dr, sl, d2r, rr, tl, mul, dt: dt + 3, rs, am: am || 0, ssg: ssg || 0 }));
+  return { type: 'fm', name: d.nome, alg: fonte.alg, fb: fonte.fb, fms: d.fms || 0, ams: d.ams || 0, ops };
 }
 function psgDe(d) {
   const ins = MDT.stdIns(d.nome, d.vol, d.volLoop == null ? (d.loop == null ? -1 : d.loop) : d.volLoop);
