@@ -672,7 +672,12 @@ class Sequencer {
     this.speed1 = this.song.speed1; this.speed2 = this.song.speed2;
     this.visited = new Set(); this.loopKey = -1;
   }
-  stop() { this.playing = false; for (let c = 0; c < NCH; c++) this.noteOff(c); this.dac = null; }
+  stop() {
+    this.playing = false; for (let c = 0; c < NCH; c++) this.noteOff(c); this.dac = null;
+    // parar = silêncio já: soltura máxima em todos os operadores (instrumentos com RR baixo soariam por segundos);
+    // a próxima nota recarrega o instrumento e volta o RR dele
+    for (let c = 0; c < 6; c++) for (let k = 0; k < 4; k++) this.fmOp(c, k, 0x80, 0xFF);
+  }
   clockSample() {
     this.tickAcc += 1;
     if (this.tickAcc >= this.spt) { this.tickAcc -= this.spt; this.tick(); }
